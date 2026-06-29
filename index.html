@@ -9,463 +9,153 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --black: #0f0f0f;
-      --gray-900: #1a1a1a;
-      --gray-700: #3a3a3a;
-      --gray-500: #6b6b6b;
-      --gray-300: #c4c4c4;
-      --gray-100: #f4f4f2;
-      --white: #ffffff;
-      --accent: #1a5cff;
-      --accent-light: #e8edff;
+      --black: #0f0f0f; --gray-900: #1a1a1a; --gray-700: #3a3a3a;
+      --gray-500: #6b6b6b; --gray-300: #c4c4c4; --gray-100: #f4f4f2;
+      --white: #ffffff; --accent: #1a5cff; --accent-light: #e8edff;
       --serif: 'Playfair Display', Georgia, serif;
       --sans: 'Inter', system-ui, sans-serif;
     }
-
     html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--white); color: var(--black); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
 
-    body {
-      font-family: var(--sans);
-      background: var(--white);
-      color: var(--black);
-      font-size: 16px;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
+    /* ADMIN OVERLAY */
+    #admin-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 9999; align-items: center; justify-content: center;
     }
-
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #eee;
-      padding: 0 2rem;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    #admin-overlay.visible { display: flex; }
+    #login-box {
+      background: white; border-radius: 8px; padding: 2rem; width: 320px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
     }
-
-    .nav-name {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--black);
-      text-decoration: none;
+    #login-box h2 { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 0.3rem; }
+    #login-box p { font-size: 0.8rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+    #login-box input {
+      width: 100%; padding: 0.65rem 0.85rem; border: 1px solid #ddd;
+      border-radius: 3px; font-size: 0.9rem; margin-bottom: 1rem; outline: none;
     }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.875rem;
-      color: var(--gray-500);
-      text-decoration: none;
-      letter-spacing: 0.03em;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--black); }
-
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 100px 2rem 4rem;
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    .hero-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-      width: 100%;
-    }
-
-    .hero-label {
-      display: inline-block;
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.5rem;
-      font-weight: 500;
-    }
-
-    .hero-name {
-      font-family: var(--serif);
-      font-size: clamp(2.5rem, 5vw, 3.75rem);
-      font-weight: 500;
-      line-height: 1.1;
-      color: var(--black);
-      margin-bottom: 1rem;
-    }
-
-    .hero-title {
-      font-size: 1.1rem;
-      color: var(--gray-500);
-      margin-bottom: 2rem;
-      font-weight: 400;
-    }
-
-    .hero-bio {
-      font-size: 1rem;
-      color: var(--gray-700);
-      line-height: 1.8;
-      margin-bottom: 2.5rem;
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      background: var(--black);
-      color: var(--white);
-      padding: 0.75rem 1.75rem;
-      border-radius: 3px;
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      transition: background 0.2s;
-    }
-
-    .btn-primary:hover { background: var(--gray-900); }
-
-    .btn-secondary {
-      display: inline-block;
-      background: transparent;
-      color: var(--black);
-      padding: 0.75rem 1.75rem;
-      border-radius: 3px;
-      border: 1px solid var(--gray-300);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: border-color 0.2s;
-    }
-
-    .btn-secondary:hover { border-color: var(--black); }
-
-    .hero-visual {
-      display: flex;
-      justify-content: center;
-    }
-
-    .avatar-wrapper {
-      position: relative;
-      width: 280px;
-      height: 340px;
-    }
-
-    .avatar-bg {
-      position: absolute;
-      inset: 0;
-      background: var(--gray-100);
-      border-radius: 2px;
-    }
-
-    .avatar-accent {
-      position: absolute;
-      width: 48px;
-      height: 4px;
-      background: var(--accent);
-      bottom: -2px;
-      left: 0;
-    }
-
-    .avatar-initials {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--serif);
-      font-size: 5rem;
-      color: var(--gray-300);
-      user-select: none;
-    }
-
-    .stats-row {
-      position: absolute;
-      bottom: -40px;
-      left: 0; right: 0;
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    .stat-chip {
-      background: var(--white);
-      border: 1px solid #eee;
-      border-radius: 2px;
-      padding: 0.5rem 1rem;
-      text-align: center;
-    }
-
-    .stat-num {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--black);
-      display: block;
-    }
-
-    .stat-lbl {
-      font-size: 0.7rem;
-      color: var(--gray-500);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    section {
-      padding: 5rem 2rem;
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 500;
-      margin-bottom: 0.75rem;
-    }
-
-    .section-title {
-      font-family: var(--serif);
-      font-size: clamp(1.75rem, 3vw, 2.5rem);
-      font-weight: 500;
-      margin-bottom: 3rem;
-      color: var(--black);
-    }
-
-    .divider {
-      border: none;
-      border-top: 1px solid #eee;
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .skill-card {
-      border: 1px solid #eee;
-      border-radius: 3px;
-      padding: 1.5rem;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .skill-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    .skill-icon {
-      font-size: 1.5rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .skill-name {
-      font-weight: 500;
-      font-size: 0.95rem;
-      margin-bottom: 0.25rem;
-      color: var(--black);
-    }
-
-    .skill-desc {
-      font-size: 0.8rem;
-      color: var(--gray-500);
-      line-height: 1.5;
-    }
-
-    .cv-list {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .cv-item {
-      display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: 2rem;
-      padding: 2rem 0;
-      border-bottom: 1px solid #eee;
-      align-items: start;
-    }
-
-    .cv-item:last-child { border-bottom: none; }
-
-    .cv-date {
-      font-size: 0.8rem;
-      color: var(--gray-500);
-      letter-spacing: 0.04em;
-      padding-top: 0.2rem;
-    }
-
-    .cv-role {
-      font-weight: 500;
-      font-size: 1rem;
-      color: var(--black);
-      margin-bottom: 0.2rem;
-    }
-
-    .cv-company {
-      font-size: 0.875rem;
-      color: var(--accent);
-      margin-bottom: 0.6rem;
-    }
-
-    .cv-desc {
-      font-size: 0.875rem;
-      color: var(--gray-700);
-      line-height: 1.7;
-    }
-
-    .cv-badge {
-      display: inline-block;
-      background: var(--accent-light);
-      color: var(--accent);
-      font-size: 0.7rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 2px;
-      margin-top: 0.5rem;
-      font-weight: 500;
-    }
-
-    .cv-section-head {
-      font-family: var(--serif);
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: var(--black);
-      margin: 2.5rem 0 0.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--accent);
-      display: inline-block;
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    .contact-intro {
-      font-size: 1rem;
-      color: var(--gray-700);
-      line-height: 1.8;
-      margin-bottom: 2rem;
-    }
-
-    .contact-links {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      text-decoration: none;
-      color: var(--gray-700);
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-
-    .contact-link:hover { color: var(--accent); }
-
-    .contact-icon {
-      width: 36px;
-      height: 36px;
-      border: 1px solid #eee;
-      border-radius: 3px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      flex-shrink: 0;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .form-label {
-      font-size: 0.8rem;
-      color: var(--gray-500);
-      font-weight: 500;
-      letter-spacing: 0.03em;
-    }
-
-    .form-input {
-      font-family: var(--sans);
-      font-size: 0.9rem;
-      padding: 0.65rem 0.85rem;
-      border: 1px solid #ddd;
-      border-radius: 3px;
-      background: var(--white);
-      color: var(--black);
-      outline: none;
-      transition: border-color 0.2s;
-      width: 100%;
-    }
-
-    .form-input:focus { border-color: var(--accent); }
-
-    textarea.form-input { resize: vertical; min-height: 110px; }
-
-    .form-submit {
-      width: 100%;
-      padding: 0.8rem;
-      background: var(--black);
-      color: var(--white);
-      border: none;
-      border-radius: 3px;
-      font-family: var(--sans);
-      font-size: 0.875rem;
-      font-weight: 500;
+    #login-box input:focus { border-color: var(--accent); }
+    #login-btn {
+      width: 100%; padding: 0.75rem; background: var(--black); color: white;
+      border: none; border-radius: 3px; font-size: 0.875rem; font-weight: 500;
       cursor: pointer;
-      transition: background 0.2s;
-      letter-spacing: 0.03em;
     }
+    #login-btn:hover { background: var(--gray-900); }
+    #login-error { color: #e53e3e; font-size: 0.8rem; margin-top: 0.5rem; display: none; }
+    #close-login { float: right; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--gray-500); }
 
+    /* ADMIN BAR */
+    #admin-bar {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--black); color: white; z-index: 9000;
+      padding: 0.75rem 1.5rem; align-items: center; justify-content: space-between;
+      font-size: 0.875rem;
+    }
+    #admin-bar.visible { display: flex; }
+    #admin-bar span { opacity: 0.7; }
+    .admin-actions { display: flex; gap: 0.75rem; }
+    .ab-btn {
+      padding: 0.45rem 1rem; border-radius: 3px; border: none;
+      font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: opacity 0.2s;
+    }
+    .ab-btn:hover { opacity: 0.85; }
+    #btn-save { background: #22c55e; color: white; }
+    #btn-logout { background: #444; color: white; }
+    #btn-download { background: var(--accent); color: white; }
+
+    /* EDITABLE HIGHLIGHT */
+    .editable { outline: none; }
+    body.admin-mode .editable:hover {
+      outline: 2px dashed var(--accent); outline-offset: 3px;
+      border-radius: 2px; cursor: text;
+    }
+    body.admin-mode .editable:focus {
+      outline: 2px solid var(--accent); outline-offset: 3px;
+      border-radius: 2px; background: #f0f5ff;
+    }
+    #edit-hint {
+      display: none; position: fixed; top: 70px; right: 1rem;
+      background: var(--accent); color: white; padding: 0.5rem 1rem;
+      border-radius: 4px; font-size: 0.8rem; z-index: 8000;
+    }
+    body.admin-mode #edit-hint { display: block; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(10px);
+      border-bottom: 1px solid #eee; padding: 0 2rem; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-name { font-family: var(--serif); font-size: 1.1rem; font-weight: 500; color: var(--black); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.875rem; color: var(--gray-500); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--black); }
+    #admin-login-btn {
+      background: none; border: 1px solid #ddd; border-radius: 3px;
+      padding: 0.3rem 0.8rem; font-size: 0.75rem; color: var(--gray-500);
+      cursor: pointer; transition: all 0.2s;
+    }
+    #admin-login-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: 100px 2rem 4rem; max-width: 960px; margin: 0 auto; }
+    .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; width: 100%; }
+    .hero-label { display: inline-block; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; font-weight: 500; }
+    .hero-name { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 3.75rem); font-weight: 500; line-height: 1.1; color: var(--black); margin-bottom: 1rem; }
+    .hero-title { font-size: 1.1rem; color: var(--gray-500); margin-bottom: 2rem; }
+    .hero-bio { font-size: 1rem; color: var(--gray-700); line-height: 1.8; margin-bottom: 2.5rem; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { display: inline-block; background: var(--black); color: var(--white); padding: 0.75rem 1.75rem; border-radius: 3px; text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: background 0.2s; }
+    .btn-primary:hover { background: var(--gray-900); }
+    .btn-secondary { display: inline-block; background: transparent; color: var(--black); padding: 0.75rem 1.75rem; border-radius: 3px; border: 1px solid var(--gray-300); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: border-color 0.2s; }
+    .btn-secondary:hover { border-color: var(--black); }
+    .hero-visual { display: flex; justify-content: center; }
+    .avatar-wrapper { position: relative; width: 280px; height: 340px; }
+    .avatar-bg { position: absolute; inset: 0; background: var(--gray-100); border-radius: 2px; }
+    .avatar-accent { position: absolute; width: 48px; height: 4px; background: var(--accent); bottom: -2px; left: 0; }
+    .avatar-initials { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 5rem; color: var(--gray-300); user-select: none; }
+    .stats-row { position: absolute; bottom: -40px; left: 0; right: 0; display: flex; gap: 1rem; justify-content: center; }
+    .stat-chip { background: var(--white); border: 1px solid #eee; border-radius: 2px; padding: 0.5rem 1rem; text-align: center; }
+    .stat-num { font-size: 1.25rem; font-weight: 600; color: var(--black); display: block; }
+    .stat-lbl { font-size: 0.7rem; color: var(--gray-500); letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* SECTIONS */
+    section { padding: 5rem 2rem; max-width: 960px; margin: 0 auto; }
+    .section-label { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--serif); font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 500; margin-bottom: 3rem; color: var(--black); }
+    .divider { border: none; border-top: 1px solid #eee; max-width: 960px; margin: 0 auto; }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+    .skill-card { border: 1px solid #eee; border-radius: 3px; padding: 1.5rem; transition: border-color 0.2s, transform 0.2s; }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .skill-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .skill-name { font-weight: 500; font-size: 0.95rem; margin-bottom: 0.25rem; color: var(--black); }
+    .skill-desc { font-size: 0.8rem; color: var(--gray-500); line-height: 1.5; }
+    .cv-list { display: flex; flex-direction: column; }
+    .cv-item { display: grid; grid-template-columns: 180px 1fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid #eee; align-items: start; }
+    .cv-item:last-child { border-bottom: none; }
+    .cv-date { font-size: 0.8rem; color: var(--gray-500); padding-top: 0.2rem; }
+    .cv-role { font-weight: 500; font-size: 1rem; color: var(--black); margin-bottom: 0.2rem; }
+    .cv-company { font-size: 0.875rem; color: var(--accent); margin-bottom: 0.6rem; }
+    .cv-desc { font-size: 0.875rem; color: var(--gray-700); line-height: 1.7; }
+    .cv-badge { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 2px; margin-top: 0.5rem; font-weight: 500; }
+    .cv-section-head { font-family: var(--serif); font-size: 1.2rem; font-weight: 500; color: var(--black); margin: 2.5rem 0 0.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent); display: inline-block; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .contact-intro { font-size: 1rem; color: var(--gray-700); line-height: 1.8; margin-bottom: 2rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--gray-700); font-size: 0.9rem; transition: color 0.2s; }
+    .contact-link:hover { color: var(--accent); }
+    .contact-icon { width: 36px; height: 36px; border: 1px solid #eee; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
+    .form-label { font-size: 0.8rem; color: var(--gray-500); font-weight: 500; }
+    .form-input { font-family: var(--sans); font-size: 0.9rem; padding: 0.65rem 0.85rem; border: 1px solid #ddd; border-radius: 3px; background: var(--white); color: var(--black); outline: none; transition: border-color 0.2s; width: 100%; }
+    .form-input:focus { border-color: var(--accent); }
+    textarea.form-input { resize: vertical; min-height: 110px; }
+    .form-submit { width: 100%; padding: 0.8rem; background: var(--black); color: var(--white); border: none; border-radius: 3px; font-family: var(--sans); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s; }
     .form-submit:hover { background: var(--gray-900); }
-
-    .form-note {
-      font-size: 0.75rem;
-      color: var(--gray-500);
-      text-align: center;
-      margin-top: 0.75rem;
-    }
-
-    footer {
-      border-top: 1px solid #eee;
-      padding: 2rem;
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--gray-500);
-    }
-
+    .form-note { font-size: 0.75rem; color: var(--gray-500); text-align: center; margin-top: 0.75rem; }
+    footer { border-top: 1px solid #eee; padding: 2rem; text-align: center; font-size: 0.8rem; color: var(--gray-500); }
     @media (max-width: 720px) {
       .hero-inner { grid-template-columns: 1fr; }
       .hero-visual { display: none; }
@@ -477,23 +167,48 @@
 </head>
 <body>
 
+<!-- ADMIN LOGIN OVERLAY -->
+<div id="admin-overlay">
+  <div id="login-box">
+    <button id="close-login" onclick="closeLogin()">✕</button>
+    <h2>Admin-Login</h2>
+    <p>Gib dein Passwort ein um die Seite zu bearbeiten</p>
+    <input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')doLogin()" />
+    <button id="login-btn" onclick="doLogin()">Anmelden</button>
+    <div id="login-error">Falsches Passwort. Bitte erneut versuchen.</div>
+  </div>
+</div>
+
+<!-- ADMIN BAR -->
+<div id="admin-bar">
+  <span>✏️ Admin-Modus aktiv – klick auf einen Text um ihn zu bearbeiten</span>
+  <div class="admin-actions">
+    <button class="ab-btn" id="btn-download" onclick="downloadPage()">⬇ Herunterladen</button>
+    <button class="ab-btn" id="btn-logout" onclick="doLogout()">Abmelden</button>
+  </div>
+</div>
+
+<div id="edit-hint">✏️ Texte anklicken zum Bearbeiten</div>
+
+<!-- NAV -->
 <nav>
-  <a href="#" class="nav-name">Daniel Polansky</a>
+  <a href="#" class="nav-name editable" contenteditable="false">Daniel Polansky</a>
   <ul class="nav-links">
     <li><a href="#ueber-mich">Über mich</a></li>
     <li><a href="#werdegang">Werdegang</a></li>
     <li><a href="#kontakt">Kontakt</a></li>
   </ul>
+  <button id="admin-login-btn" onclick="openLogin()">🔒 Admin</button>
 </nav>
 
-<!-- Hero -->
+<!-- HERO -->
 <div class="hero" id="ueber-mich">
   <div class="hero-inner">
     <div class="hero-text">
-      <span class="hero-label">Verkauf &amp; Lager · Chemnitz</span>
-      <h1 class="hero-name">Daniel<br>Polansky</h1>
-      <p class="hero-title">Verkäufer · Fachlagerist · Zuverlässig &amp; motiviert</p>
-      <p class="hero-bio">
+      <span class="hero-label editable" contenteditable="false">Verkauf &amp; Lager · Chemnitz</span>
+      <h1 class="hero-name editable" contenteditable="false">Daniel<br>Polansky</h1>
+      <p class="hero-title editable" contenteditable="false">Verkäufer · Fachlagerist · Zuverlässig &amp; motiviert</p>
+      <p class="hero-bio editable" contenteditable="false">
         Ich bringe Erfahrung im Verkauf und in der Lagerlogistik mit –
         zuletzt als Verkäufer bei Action Deutschland in Chemnitz.
         Ich arbeite strukturiert, bin teamfähig und suche eine neue
@@ -507,16 +222,16 @@
     <div class="hero-visual">
       <div class="avatar-wrapper">
         <div class="avatar-bg"></div>
-        <div class="avatar-initials">DP</div>
+        <div class="avatar-initials editable" contenteditable="false">DP</div>
         <div class="avatar-accent"></div>
         <div class="stats-row">
           <div class="stat-chip">
-            <span class="stat-num">9+</span>
-            <span class="stat-lbl">Jahre Erfahrung</span>
+            <span class="stat-num editable" contenteditable="false">9+</span>
+            <span class="stat-lbl editable" contenteditable="false">Jahre Erfahrung</span>
           </div>
           <div class="stat-chip">
-            <span class="stat-num">IHK</span>
-            <span class="stat-lbl">Abschluss</span>
+            <span class="stat-num editable" contenteditable="false">IHK</span>
+            <span class="stat-lbl editable" contenteditable="false">Abschluss</span>
           </div>
         </div>
       </div>
@@ -526,174 +241,161 @@
 
 <hr class="divider" />
 
-<!-- Skills -->
+<!-- SKILLS -->
 <section>
-  <p class="section-label">Kompetenzen</p>
-  <h2 class="section-title">Was ich mitbringe</h2>
+  <p class="section-label editable" contenteditable="false">Kompetenzen</p>
+  <h2 class="section-title editable" contenteditable="false">Was ich mitbringe</h2>
   <div class="skills-grid">
     <div class="skill-card">
       <div class="skill-icon">🛒</div>
-      <div class="skill-name">Verkauf &amp; Kundenberatung</div>
-      <div class="skill-desc">Direkter Kundenkontakt und Beratung im Einzelhandel</div>
+      <div class="skill-name editable" contenteditable="false">Verkauf &amp; Kundenberatung</div>
+      <div class="skill-desc editable" contenteditable="false">Direkter Kundenkontakt und Beratung im Einzelhandel</div>
     </div>
     <div class="skill-card">
       <div class="skill-icon">📦</div>
-      <div class="skill-name">Lagerlogistik</div>
-      <div class="skill-desc">Warenannahme, Einlagerung, Kommissionierung und Versand</div>
+      <div class="skill-name editable" contenteditable="false">Lagerlogistik</div>
+      <div class="skill-desc editable" contenteditable="false">Warenannahme, Einlagerung, Kommissionierung und Versand</div>
     </div>
     <div class="skill-card">
       <div class="skill-icon">🏭</div>
-      <div class="skill-name">Fachlagerist IHK</div>
-      <div class="skill-desc">Abgeschlossene Berufsausbildung zum Fachlageristen</div>
+      <div class="skill-name editable" contenteditable="false">Fachlagerist IHK</div>
+      <div class="skill-desc editable" contenteditable="false">Abgeschlossene Berufsausbildung zum Fachlageristen</div>
     </div>
     <div class="skill-card">
       <div class="skill-icon">🤝</div>
-      <div class="skill-name">Teamarbeit</div>
-      <div class="skill-desc">Erfahrung in kleinen und größeren Teams verschiedener Branchen</div>
+      <div class="skill-name editable" contenteditable="false">Teamarbeit</div>
+      <div class="skill-desc editable" contenteditable="false">Erfahrung in kleinen und größeren Teams verschiedener Branchen</div>
     </div>
     <div class="skill-card">
       <div class="skill-icon">🗣️</div>
-      <div class="skill-name">Sprachen</div>
-      <div class="skill-desc">Deutsch (Muttersprache), Englisch (Grundkenntnisse)</div>
+      <div class="skill-name editable" contenteditable="false">Sprachen</div>
+      <div class="skill-desc editable" contenteditable="false">Deutsch (Muttersprache), Englisch (Grundkenntnisse)</div>
     </div>
     <div class="skill-card">
       <div class="skill-icon">✅</div>
-      <div class="skill-name">Zuverlässigkeit</div>
-      <div class="skill-desc">Pünktlich, belastbar und verantwortungsbewusst</div>
+      <div class="skill-name editable" contenteditable="false">Zuverlässigkeit</div>
+      <div class="skill-desc editable" contenteditable="false">Pünktlich, belastbar und verantwortungsbewusst</div>
     </div>
   </div>
 </section>
 
 <hr class="divider" />
 
-<!-- Werdegang -->
+<!-- WERDEGANG -->
 <section id="werdegang">
-  <p class="section-label">Karriere</p>
-  <h2 class="section-title">Beruflicher Werdegang</h2>
+  <p class="section-label editable" contenteditable="false">Karriere</p>
+  <h2 class="section-title editable" contenteditable="false">Beruflicher Werdegang</h2>
 
-  <div class="cv-section-head">Berufserfahrung</div>
+  <div class="cv-section-head editable" contenteditable="false">Berufserfahrung</div>
   <div class="cv-list">
-
     <div class="cv-item">
-      <div class="cv-date">01/2025 – 02/2025</div>
+      <div class="cv-date editable" contenteditable="false">01/2025 – 02/2025</div>
       <div>
-        <div class="cv-role">Verkäufer</div>
-        <div class="cv-company">Action Deutschland GmbH, Chemnitz</div>
-        <div class="cv-desc">Kundenberatung und Verkauf im Einzelhandel, Warenpräsentation und Auffüllung der Regale.</div>
-        <span class="cv-badge">Verkauf</span>
+        <div class="cv-role editable" contenteditable="false">Verkäufer</div>
+        <div class="cv-company editable" contenteditable="false">Action Deutschland GmbH, Chemnitz</div>
+        <div class="cv-desc editable" contenteditable="false">Kundenberatung und Verkauf im Einzelhandel, Warenpräsentation und Auffüllung der Regale.</div>
+        <span class="cv-badge editable" contenteditable="false">Verkauf</span>
       </div>
     </div>
-
     <div class="cv-item">
-      <div class="cv-date">07/2024 – 12/2024</div>
+      <div class="cv-date editable" contenteditable="false">07/2024 – 12/2024</div>
       <div>
-        <div class="cv-role">Maßnahme zur Beruflichen Weiterbildung</div>
-        <div class="cv-company">CBZ Chemnitz GmbH</div>
-        <div class="cv-desc">Berufliche Weiterqualifizierung zur Stärkung der Beschäftigungsfähigkeit.</div>
-        <span class="cv-badge">Weiterbildung</span>
+        <div class="cv-role editable" contenteditable="false">Maßnahme zur Beruflichen Weiterbildung</div>
+        <div class="cv-company editable" contenteditable="false">CBZ Chemnitz GmbH</div>
+        <div class="cv-desc editable" contenteditable="false">Berufliche Weiterqualifizierung zur Stärkung der Beschäftigungsfähigkeit.</div>
+        <span class="cv-badge editable" contenteditable="false">Weiterbildung</span>
       </div>
     </div>
-
     <div class="cv-item">
-      <div class="cv-date">09/2022 – 05/2023</div>
+      <div class="cv-date editable" contenteditable="false">09/2022 – 05/2023</div>
       <div>
-        <div class="cv-role">Fachlagerist</div>
-        <div class="cv-company">Trummer Personalservice GmbH</div>
-        <div class="cv-desc">Warenannahme, Einlagerung und Kommissionierung in der Lagerlogistik.</div>
-        <span class="cv-badge">Lager</span>
+        <div class="cv-role editable" contenteditable="false">Fachlagerist</div>
+        <div class="cv-company editable" contenteditable="false">Trummer Personalservice GmbH</div>
+        <div class="cv-desc editable" contenteditable="false">Warenannahme, Einlagerung und Kommissionierung in der Lagerlogistik.</div>
+        <span class="cv-badge editable" contenteditable="false">Lager</span>
       </div>
     </div>
-
     <div class="cv-item">
-      <div class="cv-date">12/2021 – 09/2022</div>
+      <div class="cv-date editable" contenteditable="false">12/2021 – 09/2022</div>
       <div>
-        <div class="cv-role">Maßnahme zur Beruflichen Weiterbildung</div>
-        <div class="cv-company">Jugendberufshilfe Chemnitz gGmbH – Regionalvorteil Plus</div>
-        <div class="cv-desc">Berufliche Orientierung und Weiterqualifizierung.</div>
+        <div class="cv-role editable" contenteditable="false">Maßnahme zur Beruflichen Weiterbildung</div>
+        <div class="cv-company editable" contenteditable="false">Jugendberufshilfe Chemnitz gGmbH – Regionalvorteil Plus</div>
+        <div class="cv-desc editable" contenteditable="false">Berufliche Orientierung und Weiterqualifizierung.</div>
       </div>
     </div>
-
     <div class="cv-item">
-      <div class="cv-date">01/2021 – 04/2021</div>
+      <div class="cv-date editable" contenteditable="false">01/2021 – 04/2021</div>
       <div>
-        <div class="cv-role">Fachlagerist</div>
-        <div class="cv-company">Meteor Personaldienste, Chemnitz</div>
-        <div class="cv-desc">Lagerarbeit und logistische Aufgaben im Rahmen der Zeitarbeit.</div>
-        <span class="cv-badge">Lager</span>
+        <div class="cv-role editable" contenteditable="false">Fachlagerist</div>
+        <div class="cv-company editable" contenteditable="false">Meteor Personaldienste, Chemnitz</div>
+        <div class="cv-desc editable" contenteditable="false">Lagerarbeit und logistische Aufgaben im Rahmen der Zeitarbeit.</div>
+        <span class="cv-badge editable" contenteditable="false">Lager</span>
       </div>
     </div>
-
     <div class="cv-item">
-      <div class="cv-date">01/2020 – 02/2020</div>
+      <div class="cv-date editable" contenteditable="false">01/2020 – 02/2020</div>
       <div>
-        <div class="cv-role">Fachlagerist</div>
-        <div class="cv-company">Schlütter Oberflächentechnick GmbH, Suhl</div>
-        <div class="cv-desc">Lagertätigkeiten im industriellen Umfeld.</div>
-        <span class="cv-badge">Lager</span>
+        <div class="cv-role editable" contenteditable="false">Fachlagerist</div>
+        <div class="cv-company editable" contenteditable="false">Schlütter Oberflächentechnick GmbH, Suhl</div>
+        <div class="cv-desc editable" contenteditable="false">Lagertätigkeiten im industriellen Umfeld.</div>
+        <span class="cv-badge editable" contenteditable="false">Lager</span>
       </div>
     </div>
-
     <div class="cv-item">
-      <div class="cv-date">12/2017 – 11/2019</div>
+      <div class="cv-date editable" contenteditable="false">12/2017 – 11/2019</div>
       <div>
-        <div class="cv-role">Fachlagerist</div>
-        <div class="cv-company">MZA Meyer-Zweiradtechnik GmbH, Suhl</div>
-        <div class="cv-desc">Lagerlogistik im Zweiradhandel – Warenannahme, Einlagerung und Bestandspflege über zwei Jahre.</div>
-        <span class="cv-badge">Längste Anstellung</span>
+        <div class="cv-role editable" contenteditable="false">Fachlagerist</div>
+        <div class="cv-company editable" contenteditable="false">MZA Meyer-Zweiradtechnik GmbH, Suhl</div>
+        <div class="cv-desc editable" contenteditable="false">Lagerlogistik im Zweiradhandel – Warenannahme, Einlagerung und Bestandspflege über zwei Jahre.</div>
+        <span class="cv-badge editable" contenteditable="false">Längste Anstellung</span>
       </div>
     </div>
-
   </div>
 
-  <div class="cv-section-head">Berufsausbildung</div>
+  <div class="cv-section-head editable" contenteditable="false">Berufsausbildung</div>
   <div class="cv-list">
-
     <div class="cv-item">
-      <div class="cv-date">09/2015 – 07/2017</div>
+      <div class="cv-date editable" contenteditable="false">09/2015 – 07/2017</div>
       <div>
-        <div class="cv-role">Ausbildung zum Fachlageristen (IHK)</div>
-        <div class="cv-company">Don Bosco Jugend-Werk Sachsen gGmbH</div>
-        <div class="cv-desc">Abgeschlossene Berufsausbildung mit IHK-Abschluss im Bereich Lagerlogistik.</div>
-        <span class="cv-badge">IHK-Abschluss</span>
+        <div class="cv-role editable" contenteditable="false">Ausbildung zum Fachlageristen (IHK)</div>
+        <div class="cv-company editable" contenteditable="false">Don Bosco Jugend-Werk Sachsen gGmbH</div>
+        <div class="cv-desc editable" contenteditable="false">Abgeschlossene Berufsausbildung mit IHK-Abschluss im Bereich Lagerlogistik.</div>
+        <span class="cv-badge editable" contenteditable="false">IHK-Abschluss</span>
       </div>
     </div>
-
     <div class="cv-item">
-      <div class="cv-date">09/2014 – 08/2015</div>
+      <div class="cv-date editable" contenteditable="false">09/2014 – 08/2015</div>
       <div>
-        <div class="cv-role">Berufsvorbereitende Bildungsmaßnahme</div>
-        <div class="cv-company">Don Bosco Jugend-Werk Sachsen gGmbH</div>
-        <div class="cv-desc">Vorbereitung auf die Berufsausbildung.</div>
+        <div class="cv-role editable" contenteditable="false">Berufsvorbereitende Bildungsmaßnahme</div>
+        <div class="cv-company editable" contenteditable="false">Don Bosco Jugend-Werk Sachsen gGmbH</div>
+        <div class="cv-desc editable" contenteditable="false">Vorbereitung auf die Berufsausbildung.</div>
       </div>
     </div>
-
   </div>
 
-  <div class="cv-section-head">Schulbildung</div>
+  <div class="cv-section-head editable" contenteditable="false">Schulbildung</div>
   <div class="cv-list">
-
     <div class="cv-item">
-      <div class="cv-date">09/2004 – 07/2014</div>
+      <div class="cv-date editable" contenteditable="false">09/2004 – 07/2014</div>
       <div>
-        <div class="cv-role">Mittlere Reife (Realschulabschluss)</div>
-        <div class="cv-company">Evangelische Oberschule Burkhardtsdorf</div>
-        <div class="cv-desc">Allgemeinbildende Schule mit Abschluss Mittlere Reife.</div>
-        <span class="cv-badge">Mittlere Reife</span>
+        <div class="cv-role editable" contenteditable="false">Mittlere Reife (Realschulabschluss)</div>
+        <div class="cv-company editable" contenteditable="false">Evangelische Oberschule Burkhardtsdorf</div>
+        <div class="cv-desc editable" contenteditable="false">Allgemeinbildende Schule mit Abschluss Mittlere Reife.</div>
+        <span class="cv-badge editable" contenteditable="false">Mittlere Reife</span>
       </div>
     </div>
-
   </div>
 </section>
 
 <hr class="divider" />
 
-<!-- Kontakt -->
+<!-- KONTAKT -->
 <section id="kontakt">
-  <p class="section-label">Kontakt</p>
-  <h2 class="section-title">Melde dich bei mir</h2>
+  <p class="section-label editable" contenteditable="false">Kontakt</p>
+  <h2 class="section-title editable" contenteditable="false">Melde dich bei mir</h2>
   <div class="contact-grid">
     <div>
-      <p class="contact-intro">
+      <p class="contact-intro editable" contenteditable="false">
         Ich freue mich über Jobangebote im Verkauf oder in der Lagerlogistik
         im Raum Chemnitz. Einfach anrufen oder eine Nachricht schicken –
         ich melde mich schnell zurück.
@@ -701,19 +403,18 @@
       <div class="contact-links">
         <a href="tel:+4915562812208" class="contact-link">
           <span class="contact-icon">📞</span>
-          015562812208
+          <span class="editable" contenteditable="false">015562812208</span>
         </a>
         <a href="mailto:danielp975@gmx.de" class="contact-link">
           <span class="contact-icon">✉️</span>
-          danielp975@gmx.de
+          <span class="editable" contenteditable="false">danielp975@gmx.de</span>
         </a>
-        <a href="https://www.google.com/maps?q=Chemnitz" target="_blank" rel="noopener" class="contact-link">
+        <div class="contact-link">
           <span class="contact-icon">📍</span>
-          Chemnitz, Sachsen
-        </a>
+          <span class="editable" contenteditable="false">Chemnitz, Sachsen</span>
+        </div>
       </div>
     </div>
-
     <div>
       <form onsubmit="handleSubmit(event)">
         <div class="form-group">
@@ -726,7 +427,7 @@
         </div>
         <div class="form-group">
           <label class="form-label" for="nachricht">Nachricht</label>
-          <textarea class="form-input" id="nachricht" placeholder="Kurze Beschreibung der Stelle oder des Anliegens…" required></textarea>
+          <textarea class="form-input" id="nachricht" placeholder="Kurze Beschreibung der Stelle…" required></textarea>
         </div>
         <button type="submit" class="form-submit" id="submit-btn">Nachricht senden</button>
         <p class="form-note" id="form-msg"></p>
@@ -736,10 +437,82 @@
 </section>
 
 <footer>
-  <p>© 2026 Daniel Polansky · Chemnitz</p>
+  <p class="editable" contenteditable="false">© 2026 Daniel Polansky · Chemnitz</p>
 </footer>
 
 <script>
+  const ADMIN_PASSWORD = 'Daniel1997';
+  let isAdmin = false;
+
+  function openLogin() {
+    document.getElementById('admin-overlay').classList.add('visible');
+    document.getElementById('pw-input').value = '';
+    document.getElementById('login-error').style.display = 'none';
+    setTimeout(() => document.getElementById('pw-input').focus(), 100);
+  }
+
+  function closeLogin() {
+    document.getElementById('admin-overlay').classList.remove('visible');
+  }
+
+  function doLogin() {
+    const pw = document.getElementById('pw-input').value;
+    if (pw === ADMIN_PASSWORD) {
+      isAdmin = true;
+      closeLogin();
+      enableAdminMode();
+    } else {
+      document.getElementById('login-error').style.display = 'block';
+      document.getElementById('pw-input').value = '';
+      document.getElementById('pw-input').focus();
+    }
+  }
+
+  function enableAdminMode() {
+    document.body.classList.add('admin-mode');
+    document.getElementById('admin-bar').classList.add('visible');
+    document.getElementById('admin-login-btn').style.display = 'none';
+    document.querySelectorAll('.editable').forEach(el => {
+      el.contentEditable = 'true';
+    });
+  }
+
+  function doLogout() {
+    isAdmin = false;
+    document.body.classList.remove('admin-mode');
+    document.getElementById('admin-bar').classList.remove('visible');
+    document.getElementById('admin-login-btn').style.display = 'block';
+    document.querySelectorAll('.editable').forEach(el => {
+      el.contentEditable = 'false';
+    });
+  }
+
+  function downloadPage() {
+    // Temporarily disable editing for clean export
+    document.querySelectorAll('.editable').forEach(el => el.contentEditable = 'false');
+    document.body.classList.remove('admin-mode');
+    document.getElementById('admin-bar').classList.remove('visible');
+    document.getElementById('admin-login-btn').style.display = 'block';
+    document.getElementById('edit-hint').style.display = 'none';
+
+    const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+    // Re-enable admin mode
+    setTimeout(() => {
+      document.body.classList.add('admin-mode');
+      document.getElementById('admin-bar').classList.add('visible');
+      document.getElementById('admin-login-btn').style.display = 'none';
+      document.getElementById('edit-hint').style.display = 'block';
+      document.querySelectorAll('.editable').forEach(el => el.contentEditable = 'true');
+    }, 100);
+
+    const blob = new Blob([html], { type: 'text/html' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'index.html';
+    a.click();
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
@@ -751,14 +524,14 @@
       msg.textContent = 'Ich melde mich so schnell wie möglich.';
       msg.style.color = '#1a5cff';
       e.target.reset();
-      setTimeout(() => {
-        btn.textContent = 'Nachricht senden';
-        btn.disabled = false;
-        msg.textContent = '';
-      }, 4000);
+      setTimeout(() => { btn.textContent = 'Nachricht senden'; btn.disabled = false; msg.textContent = ''; }, 4000);
     }, 1200);
   }
-</script>
 
+  // Close overlay on background click
+  document.getElementById('admin-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeLogin();
+  });
+</script>
 </body>
 </html>
