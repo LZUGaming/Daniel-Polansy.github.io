@@ -6,192 +6,262 @@
   <title>Daniel Polansky – Ihr Experte im Verkauf mit Logistik-Kompetenz</title>
   <link rel="preconnect" href="https://fonts.googleapis.com/">
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --black: #0f0f0f; --gray-900: #1a1a1a; --gray-700: #3a3a3a;
-      --gray-500: #6b6b6b; --gray-300: #c4c4c4; --gray-100: #f4f4f2;
-      --white: #ffffff; --accent: #1a5cff; --accent-light: #e8edff;
+      --black: #111111;
+      --gray-900: #1a1a1a;
+      --gray-700: #333333;
+      --gray-500: #666666;
+      --gray-300: #dddddd;
+      --gray-100: #f3f3f1;
+      --white: #ffffff;
+      /* Das kraftvolle Orange-Rot aus der Design-Vorlage */
+      --accent: #FF3B1D; 
+      --accent-light: #FFF0ED;
+      --accent-hover: #D62F14;
+      --bg-main: #FAF9F6; /* Edles, warmes Off-White gegen Tristesse */
       --serif: 'Playfair Display', Georgia, serif;
       --sans: 'Inter', system-ui, sans-serif;
     }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--sans); background: var(--white); color: var(--black); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--sans); background: var(--bg-main); color: var(--black); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
 
     /* ADMIN OVERLAY */
     #admin-overlay {
-      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
       z-index: 9999; align-items: center; justify-content: center;
+      backdrop-filter: blur(4px);
     }
     #admin-overlay.visible { display: flex; }
     #login-box {
-      background: white; border-radius: 8px; padding: 2rem; width: 320px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      background: white; border-radius: 12px; padding: 2.5rem; width: 340px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
-    #login-box h2 { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 0.3rem; }
-    #login-box p { font-size: 0.8rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+    #login-box h2 { font-family: var(--serif); font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--black); }
+    #login-box p { font-size: 0.85rem; color: var(--gray-500); margin-bottom: 1.5rem; }
     #login-box input {
-      width: 100%; padding: 0.65rem 0.85rem; border: 1px solid #ddd;
-      border-radius: 3px; font-size: 0.9rem; margin-bottom: 1rem; outline: none;
+      width: 100%; padding: 0.75rem 1rem; border: 2px solid var(--gray-100);
+      border-radius: 6px; font-size: 0.9rem; margin-bottom: 12px; outline: none;
+      transition: border-color 0.2s;
     }
     #login-box input:focus { border-color: var(--accent); }
     #login-btn {
-      width: 100%; padding: 0.75rem; background: var(--black); color: white;
-      border: none; border-radius: 3px; font-size: 0.875rem; font-weight: 500;
-      cursor: pointer;
+      width: 100%; padding: 0.85rem; background: var(--accent); color: white;
+      border: none; border-radius: 6px; font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s;
     }
-    #login-btn:hover { background: var(--gray-900); }
-    #login-error { color: #e53e3e; font-size: 0.8rem; margin-top: 0.5rem; display: none; }
-    #close-login { float: right; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--gray-500); }
+    #login-btn:hover { background: var(--accent-hover); }
+    #login-error { color: #e53e3e; font-size: 0.8rem; margin-top: 0.75rem; display: none; text-align: center; font-weight: 500; }
+    #close-login { float: right; background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--gray-500); transition: color 0.2s; }
+    #close-login:hover { color: var(--black); }
 
     /* ADMIN BAR */
     #admin-bar {
       display: none; position: fixed; bottom: 0; left: 0; right: 0;
       background: var(--black); color: white; z-index: 9000;
-      padding: 0.75rem 1.5rem; align-items: center; justify-content: space-between;
-      font-size: 0.875rem;
+      padding: 1rem 1.5rem; align-items: center; justify-content: space-between;
+      font-size: 0.875rem; box-shadow: 0 -10px 25px rgba(0,0,0,0.15);
     }
     #admin-bar.visible { display: flex; }
-    #admin-bar span { opacity: 0.7; }
+    #admin-bar span { opacity: 0.85; display: flex; align-items: center; gap: 0.5rem; }
     .admin-actions { display: flex; gap: 0.75rem; }
     .ab-btn {
-      padding: 0.45rem 1rem; border-radius: 3px; border: none;
-      font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: opacity 0.2s;
+      padding: 0.5rem 1.25rem; border-radius: 6px; border: none;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
     }
-    .ab-btn:hover { opacity: 0.85; }
+    .ab-btn:hover { opacity: 0.9; transform: translateY(-1px); }
     #btn-save { background: #22c55e; color: white; }
-    #btn-logout { background: #444; color: white; }
+    #btn-logout { background: #333; color: white; }
     #btn-download { background: var(--accent); color: white; }
 
     /* EDITABLE HIGHLIGHT */
     .editable { outline: none; }
     body.admin-mode .editable:hover {
-      outline: 2px dashed var(--accent); outline-offset: 3px;
-      border-radius: 2px; cursor: text;
+      outline: 2px dashed var(--accent); outline-offset: 4px;
+      border-radius: 4px; cursor: text;
     }
     body.admin-mode .editable:focus {
-      outline: 2px solid var(--accent); outline-offset: 3px;
-      border-radius: 2px; background: #f0f5ff;
+      outline: 2px solid var(--accent); outline-offset: 4px;
+      border-radius: 4px; background: var(--accent-light);
     }
     #edit-hint {
-      display: none; position: fixed; top: 70px; right: 1rem;
-      background: var(--accent); color: white; padding: 0.5rem 1rem;
-      border-radius: 4px; font-size: 0.8rem; z-index: 8000;
+      display: none; position: fixed; top: 80px; right: 1.5rem;
+      background: var(--accent); color: white; padding: 0.6rem 1.2rem;
+      border-radius: 6px; font-size: 0.8rem; font-weight: 600; z-index: 8000;
+      box-shadow: 0 10px 20px rgba(255, 59, 29, 0.2);
     }
     body.admin-mode #edit-hint { display: block; }
 
     /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(255,255,255,0.92); backdrop-filter: blur(10px);
-      border-bottom: 1px solid #eee; padding: 0 2rem; height: 60px;
+      background: rgba(255,255,255,0.9); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06); padding: 0 2.5rem; height: 70px;
       display: flex; align-items: center; justify-content: space-between;
+      transition: all 0.3s;
     }
-    .nav-name { font-family: var(--serif); font-size: 1.1rem; font-weight: 500; color: var(--black); text-decoration: none; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { font-size: 0.875rem; color: var(--gray-500); text-decoration: none; transition: color 0.2s; }
+    .nav-name { font-family: var(--serif); font-size: 1.25rem; font-weight: 700; color: var(--black); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+    .nav-name::before { content: 'DP'; font-family: var(--sans); font-size: 0.75rem; background: var(--accent); color: white; padding: 4px 6px; border-radius: 4px; font-weight: 700; letter-spacing: 0.05em; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--gray-700); text-decoration: none; transition: color 0.2s; position: relative; padding: 0.25rem 0; }
+    .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--accent); transition: width 0.2s; }
     .nav-links a:hover { color: var(--black); }
+    .nav-links a:hover::after { width: 100%; }
     #admin-login-btn {
-      background: none; border: 1px solid #ddd; border-radius: 3px;
-      padding: 0.3rem 0.8rem; font-size: 0.75rem; color: var(--gray-500);
+      background: transparent; border: 1.5px solid var(--gray-300); border-radius: 6px;
+      padding: 0.4rem 1rem; font-size: 0.75rem; font-weight: 600; color: var(--gray-700);
       cursor: pointer; transition: all 0.2s;
     }
-    #admin-login-btn:hover { border-color: var(--accent); color: var(--accent); }
+    #admin-login-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
 
     /* HERO */
-    .hero { min-height: 100vh; display: flex; align-items: center; padding: 100px 2rem 4rem; max-width: 960px; margin: 0 auto; }
-    .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; width: 100%; }
-    .hero-label { display: inline-block; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; font-weight: 500; }
-    .hero-name { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 3.75rem); font-weight: 500; line-height: 1.1; color: var(--black); margin-bottom: 1rem; }
-    .hero-title { font-size: 1.1rem; color: var(--gray-500); margin-bottom: 2rem; }
-    .hero-bio { font-size: 1rem; color: var(--gray-700); line-height: 1.8; margin-bottom: 2.5rem; }
-    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary { display: inline-block; background: var(--black); color: var(--white); padding: 0.75rem 1.75rem; border-radius: 3px; text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: background 0.2s; }
-    .btn-primary:hover { background: var(--gray-900); }
-    .btn-secondary { display: inline-block; background: transparent; color: var(--black); padding: 0.75rem 1.75rem; border-radius: 3px; border: 1px solid var(--gray-300); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: border-color 0.2s; }
-    .btn-secondary:hover { border-color: var(--black); }
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 2.5rem 5rem; max-width: 1050px; margin: 0 auto; position: relative; }
+    .hero-inner { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4.5rem; align-items: center; width: 100%; }
+    .hero-label { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; font-weight: 700; }
+    .hero-label::before { content: ''; width: 12px; height: 2px; background: var(--accent); }
+    .hero-name { font-family: var(--serif); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 700; line-height: 1.05; color: var(--black); margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+    .hero-name span { color: var(--accent); }
+    .hero-title { font-size: 1.2rem; font-weight: 600; color: var(--gray-700); margin-bottom: 2rem; border-left: 3px solid var(--accent); padding-left: 1rem; }
+    .hero-bio { font-size: 1.05rem; color: var(--gray-700); line-height: 1.8; margin-bottom: 3rem; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary { display: inline-flex; align-items: center; background: var(--accent); color: var(--white); padding: 0.9rem 2.25rem; border-radius: 6px; text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: all 0.2s; box-shadow: 0 10px 20px -5px rgba(255, 59, 29, 0.3); }
+    .btn-primary:hover { background: var(--black); transform: translateY(-2px); box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2); }
+    .btn-secondary { display: inline-flex; align-items: center; background: transparent; color: var(--black); padding: 0.9rem 2.25rem; border-radius: 6px; border: 2px solid var(--black); text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: all 0.2s; }
+    .btn-secondary:hover { background: var(--black); color: white; transform: translateY(-2px); }
     
-    .hero-visual { display: flex; justify-content: center; }
-    .avatar-wrapper { position: relative; width: 280px; height: 340px; background: var(--gray-100); border-radius: 2px; overflow: hidden; }
-    .avatar-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .avatar-accent { position: absolute; width: 48px; height: 4px; background: var(--accent); bottom: 0; left: 0; z-index: 3; }
+    /* HERO VISUAL & AVATAR CONTAINER */
+    .hero-visual { display: flex; justify-content: center; position: relative; }
     
-    .stats-row { position: absolute; bottom: -40px; left: 0; right: 0; display: flex; gap: 1rem; justify-content: center; z-index: 4; }
-    .stat-chip { background: var(--white); border: 1px solid #eee; border-radius: 2px; padding: 0.5rem 1rem; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-    .stat-num { font-size: 1.1rem; font-weight: 600; color: var(--black); display: block; }
-    .stat-lbl { font-size: 0.7rem; color: var(--gray-500); letter-spacing: 0.06em; text-transform: uppercase; }
+    /* Ein neuer, übergeordneter Container, der KEIN overflow: hidden hat! Dadurch können die Kärtchen unten wunderschön herausragen */
+    .avatar-container {
+      position: relative;
+      width: 300px;
+      height: 360px;
+    }
+    
+    /* Nur die Bild-Box selbst rundet das Bild ab und beschneidet den schrägen roten Effekt */
+    .avatar-wrapper { 
+      position: relative; 
+      width: 100%; 
+      height: 100%; 
+      border-radius: 12px; 
+      overflow: hidden; 
+      box-shadow: 0 30px 60px -15px rgba(0,0,0,0.15); 
+      transition: transform 0.3s ease; 
+    }
+    .avatar-wrapper:hover { transform: scale(1.02); }
+    .avatar-wrapper::before { content: ''; position: absolute; top: -10%; left: -50%; width: 200%; height: 50%; background: var(--accent); transform: rotate(-15deg); opacity: 0.15; pointer-events: none; }
+    .avatar-img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(10%) contrast(105%); }
+    .avatar-accent { position: absolute; width: 100%; height: 6px; background: var(--accent); bottom: 0; left: 0; z-index: 3; }
+    
+    /* Diese Zeile schwebt außerhalb des avatar-wrappers und wird somit NIE WIEDER abgeschnitten! */
+    .stats-row { 
+      position: absolute; 
+      bottom: -35px; 
+      left: -20px; 
+      right: -20px; 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 12px; 
+      z-index: 10; 
+    }
+    .stat-chip { background: var(--white); border-radius: 8px; padding: 0.75rem 1rem; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border-bottom: 3px solid var(--accent); }
+    .stat-num { font-size: 1.15rem; font-weight: 750; color: var(--black); display: block; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.2; }
+    .stat-lbl { font-size: 0.7rem; color: var(--gray-500); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; margin-top: 0.2rem; display: block; line-height: 1.3; }
 
     /* SECTIONS */
-    section { padding: 5rem 2rem; max-width: 960px; margin: 0 auto; }
-    .section-label { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.75rem; }
-    .section-title { font-family: var(--serif); font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 500; margin-bottom: 3rem; color: var(--black); }
-    .divider { border: none; border-top: 1px solid #eee; max-width: 960px; margin: 0 auto; }
+    section { padding: 7rem 2.5rem; max-width: 1050px; margin: 0 auto; }
+    .section-label { font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .section-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 700; margin-bottom: 4.5rem; color: var(--black); letter-spacing: -0.01em; }
+    .divider { border: none; border-top: 1px solid rgba(0,0,0,0.06); max-width: 1050px; margin: 0 auto; }
     
     /* SKILLS GRID */
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
-    .skill-card { border: 1px solid #eee; border-radius: 3px; padding: 1.5rem; transition: border-color 0.2s, transform 0.2s; }
-    .skill-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; }
+    .skill-card { background: var(--white); border: 1.5px solid rgba(0,0,0,0.04); border-radius: 8px; padding: 2rem; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 4px 6px rgba(0,0,0,0.01); display: flex; flex-direction: column; position: relative; overflow: hidden; }
+    .skill-card::after { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent); transform: scaleY(0); transition: transform 0.2s ease; transform-origin: bottom; }
+    .skill-card:hover { border-color: rgba(0,0,0,0.08); transform: translateY(-5px); box-shadow: 0 20px 40px -15px rgba(0,0,0,0.08); }
+    .skill-card:hover::after { transform: scaleY(1); }
     
-    /* CLICKABLE CARD (ZEUGNISSE) */
+    /* SPEZIELLE LINK-KARTE FÜR DIE ZEUGNISSE */
     .skill-card.clickable-card {
       text-decoration: none;
       color: inherit;
+      border: 1.5px dashed var(--accent);
       background: var(--white);
-      border-color: #eee;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
+    }
+    .skill-card.clickable-card::after {
+      background: var(--accent);
+      transform: scaleY(0);
     }
     .skill-card.clickable-card:hover {
+      border-style: solid;
       border-color: var(--accent);
     }
     .card-action {
       margin-top: auto;
-      padding-top: 1rem;
-      font-size: 0.8rem;
-      font-weight: 600;
+      padding-top: 1.25rem;
+      font-size: 0.85rem;
+      font-weight: 700;
       color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: gap 0.2s;
+    }
+    .skill-card.clickable-card:hover .card-action {
+      gap: 0.5rem;
     }
     
-    .skill-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
-    .skill-name { font-weight: 500; font-size: 0.95rem; margin-bottom: 0.25rem; color: var(--black); }
-    .skill-desc { font-size: 0.8rem; color: var(--gray-500); line-height: 1.5; }
+    .skill-icon { font-size: 2rem; margin-bottom: 1.25rem; display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: var(--bg-main); border-radius: 8px; }
+    .skill-name { font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--black); }
+    .skill-desc { font-size: 0.875rem; color: var(--gray-700); line-height: 1.6; }
     
-    /* CV LIST */
-    .cv-list { display: flex; flex-direction: column; }
-    .cv-item { display: grid; grid-template-columns: 180px 1fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid #eee; align-items: start; }
-    .cv-item:last-child { border-bottom: none; }
-    .cv-date { font-size: 0.8rem; color: var(--gray-500); padding-top: 0.2rem; }
-    .cv-role { font-weight: 500; font-size: 1rem; color: var(--black); margin-bottom: 0.2rem; }
-    .cv-company { font-size: 0.875rem; color: var(--accent); margin-bottom: 0.6rem; }
-    .cv-desc { font-size: 0.875rem; color: var(--gray-700); line-height: 1.7; }
-    .cv-badge { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 2px; margin-top: 0.5rem; font-weight: 500; }
-    .cv-section-head { font-family: var(--serif); font-size: 1.2rem; font-weight: 500; color: var(--black); margin: 2.5rem 0 0.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent); display: inline-block; }
+    /* CV LIST & TIMELINE */
+    .cv-list { display: flex; flex-direction: column; position: relative; padding-left: 2rem; border-left: 2px solid var(--gray-100); }
+    .cv-list::before { content: ''; position: absolute; left: -2px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--gray-100) 80%); }
+    .cv-item { display: grid; grid-template-columns: 160px 1fr; gap: 2.5rem; padding: 2.5rem 0; position: relative; }
+    .cv-item::after { content: ''; position: absolute; left: calc(-2rem - 6px); top: 2.9rem; width: 10px; height: 10px; border-radius: 50%; background: var(--white); border: 2.5px solid var(--accent); transition: background 0.2s; }
+    .cv-item:hover::after { background: var(--accent); }
+    .cv-date { font-size: 0.85rem; font-weight: 700; color: var(--accent); padding-top: 0.2rem; letter-spacing: 0.05em; }
+    .cv-role { font-weight: 700; font-size: 1.15rem; color: var(--black); margin-bottom: 0.25rem; }
+    .cv-company { font-size: 0.9rem; font-weight: 600; color: var(--black); margin-bottom: 0.75rem; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .cv-desc { font-size: 0.9rem; color: var(--gray-700); line-height: 1.7; }
+    .cv-badge { display: inline-flex; background: var(--accent-light); color: var(--accent); font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 4px; margin-top: 0.75rem; font-weight: 700; letter-spacing: 0.02em; }
+    .cv-section-head { font-family: var(--serif); font-size: 1.4rem; font-weight: 700; color: var(--black); margin: 3.5rem 0 1.5rem; padding-bottom: 0.75rem; border-bottom: 3px solid var(--accent); display: inline-block; }
     
     /* CONTACT & FORM */
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-    .contact-intro { font-size: 1rem; color: var(--gray-700); line-height: 1.8; margin-bottom: 2rem; }
-    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
-    .contact-link { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--gray-700); font-size: 0.9rem; transition: color 0.2s; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4.5rem; align-items: start; }
+    .contact-intro { font-size: 1.05rem; color: var(--gray-700); line-height: 1.8; margin-bottom: 2.5rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 1.25rem; }
+    .contact-link { display: flex; align-items: center; gap: 1rem; text-decoration: none; color: var(--gray-700); font-size: 0.95rem; font-weight: 500; transition: color 0.2s; }
     .contact-link:hover { color: var(--accent); }
-    .contact-icon { width: 36px; height: 36px; border: 1px solid #eee; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
-    .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
-    .form-label { font-size: 0.8rem; color: var(--gray-500); font-weight: 500; }
-    .form-input { font-family: var(--sans); font-size: 0.9rem; padding: 0.65rem 0.85rem; border: 1px solid #ddd; border-radius: 3px; background: var(--white); color: var(--black); outline: none; transition: border-color 0.2s; width: 100%; }
-    .form-input:focus { border-color: var(--accent); }
-    textarea.form-input { resize: vertical; min-height: 110px; }
-    .form-submit { width: 100%; padding: 0.8rem; background: var(--black); color: var(--white); border: none; border-radius: 3px; font-family: var(--sans); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.2s; }
-    .form-submit:hover { background: var(--gray-900); }
-    .form-note { font-size: 0.75rem; color: var(--gray-500); text-align: center; margin-top: 0.75rem; }
-    footer { border-top: 1px solid #eee; padding: 2rem; text-align: center; font-size: 0.8rem; color: var(--gray-500); }
+    .contact-icon { width: 44px; height: 44px; border: 1.5px solid var(--gray-300); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; background: var(--white); transition: all 0.2s; }
+    .contact-link:hover .contact-icon { border-color: var(--accent); background: var(--accent-light); color: var(--accent); transform: translateY(-2px); }
     
-    @media (max-width: 720px) {
-      .hero-inner { grid-template-columns: 1fr; }
-      .hero-visual { display: none; }
-      .cv-item { grid-template-columns: 1fr; gap: 0.5rem; }
-      .contact-grid { grid-template-columns: 1fr; }
+    .form-card { background: var(--white); border-radius: 12px; padding: 2.5rem; box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05); border: 1.5px solid rgba(0,0,0,0.04); }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .form-label { font-size: 0.8rem; color: var(--gray-500); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .form-input { font-family: var(--sans); font-size: 0.9rem; padding: 0.8rem 1rem; border: 1.5px solid var(--gray-300); border-radius: 6px; background: var(--white); color: var(--black); outline: none; transition: border-color 0.2s; width: 100%; }
+    .form-input:focus { border-color: var(--accent); }
+    textarea.form-input { resize: vertical; min-height: 130px; }
+    .form-submit { width: 100%; padding: 0.95rem; background: var(--accent); color: var(--white); border: none; border-radius: 6px; font-family: var(--sans); font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 10px 20px -5px rgba(255, 59, 29, 0.3); }
+    .form-submit:hover { background: var(--black); transform: translateY(-1px); box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2); }
+    .form-note { font-size: 0.8rem; color: var(--gray-500); text-align: center; margin-top: 1rem; font-weight: 500; }
+    
+    footer { border-top: 1px solid rgba(0,0,0,0.06); padding: 3rem 2rem; text-align: center; font-size: 0.85rem; color: var(--gray-500); font-weight: 500; }
+    
+    @media (max-width: 820px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 3.5rem; }
+      .hero-visual { order: -1; }
+      .avatar-container { margin: 0 auto; }
+      .stats-row { left: 0; right: 0; }
+      .cv-item { grid-template-columns: 1fr; gap: 0.75rem; padding-left: 0.5rem; }
+      .cv-item::after { left: calc(-2rem - 6px); top: 0.45rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3.5rem; }
       .nav-links { display: none; }
+      section { padding: 5rem 1.5rem; }
     }
   </style>
 </head>
@@ -202,7 +272,7 @@
   <div id="login-box">
     <button id="close-login" onclick="closeLogin()">✕</button>
     <h2>Admin-Login</h2>
-    <p>Gib dein Passwort ein um die Seite zu bearbeiten</p>
+    <p>Gib dein Passwort ein, um die Seite zu bearbeiten</p>
     <input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')doLogin()">
     <button id="login-btn" onclick="doLogin()">Anmelden</button>
     <div id="login-error" style="display: none;">Falsches Passwort. Bitte erneut versuchen.</div>
@@ -236,7 +306,7 @@
   <div class="hero-inner">
     <div class="hero-text">
       <span class="hero-label editable" contenteditable="false">Kundenberatung &amp; Verkauf · Chemnitz</span>
-      <h1 class="hero-name editable" contenteditable="false">Daniel<br>Polansky</h1>
+      <h1 class="hero-name editable" contenteditable="false">Daniel<br><span>Polansky</span></h1>
       <p class="hero-title editable" contenteditable="false">Engagierter Verkäufer im Einzelhandel · Mit ausgeprägtem Logistik-Hintergrund</p>
       <p class="hero-bio editable" contenteditable="false">
         Ich schätze den direkten Kundenkontakt, arbeite mich schnell in 
@@ -249,10 +319,15 @@ zuverlässig bei der Warenannahme und im Lager.
         <a href="#werdegang" class="btn-secondary">Mein Werdegang</a>
       </div>
     </div>
+    
+    <!-- HIER IST DIE GEFIKTE AVATAR-BOX -->
     <div class="hero-visual">
-      <div class="avatar-wrapper">
-        <img src="./bewerbungsfoto.jpg" alt="Daniel Polansky" class="avatar-img">
-        <div class="avatar-accent"></div>
+      <div class="avatar-container">
+        <div class="avatar-wrapper">
+          <img src="bewerbungsfoto.jpg" alt="Daniel Polansky" class="avatar-img">
+          <div class="avatar-accent"></div>
+        </div>
+        <!-- Die Stats-Row schwebt jetzt im container außerhalb von overflow:hidden und zeigt den gesamten Text unbeschnitten an! -->
         <div class="stats-row">
           <div class="stat-chip">
             <span class="stat-num editable" contenteditable="false">Verkauf</span>
@@ -450,22 +525,24 @@ zuverlässig bei der Warenannahme und im Lager.
       </div>
     </div>
     <div>
-      <form id="contact-form" onsubmit="handleSubmit(event)">
-        <div class="form-group">
-          <label class="form-label" for="name">Ihr Name</label>
-          <input class="form-input" type="text" id="name" name="name" placeholder="z.B. Sabine Müller (Personalabteilung)" required="">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="email">E-Mail-Adresse</label>
-          <input class="form-input" type="email" id="email" name="email" placeholder="ihre.firma@beispiel.de" required="">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="nachricht">Ihre Nachricht</label>
-          <textarea class="form-input" id="nachricht" name="message" placeholder="Erzählen Sie mir kurz von Ihrer freien Stelle im Verkauf..." required=""></textarea>
-        </div>
-        <button type="submit" class="form-submit" id="submit-btn">Nachricht senden</button>
-        <p class="form-note" id="form-msg"></p>
-      </form>
+      <div class="form-card">
+        <form id="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label class="form-label" for="name">Ihr Name</label>
+            <input class="form-input" type="text" id="name" name="name" placeholder="z.B. Sabine Müller (Personalabteilung)" required="">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">E-Mail-Adresse</label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="ihre.firma@beispiel.de" required="">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="nachricht">Ihre Nachricht</label>
+            <textarea class="form-input" id="nachricht" name="message" placeholder="Erzählen Sie mir kurz von Ihrer freien Stelle im Verkauf..." required=""></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="submit-btn">Nachricht senden</button>
+          <p class="form-note" id="form-msg"></p>
+        </form>
+      </div>
     </div>
   </div>
 </section>
@@ -559,7 +636,7 @@ zuverlässig bei der Warenannahme und im Lager.
       setTimeout(() => {
         btn.textContent = '✓ Nachricht gesendet';
         msg.textContent = 'Vielen Dank! Ich melde mich so schnell wie möglich bei Ihnen (Simulation).';
-        msg.style.color = '#1a5cff';
+        msg.style.color = '#FF3B1D';
         e.target.reset();
         setTimeout(() => { 
           btn.textContent = 'Nachricht senden'; 
