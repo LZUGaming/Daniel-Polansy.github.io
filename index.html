@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
+<html lang="de"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daniel Polansky – Ihr Experte im Verkauf mit Logistik-Kompetenz</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
-  
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -113,7 +112,7 @@
     .btn-secondary { display: inline-block; background: transparent; color: var(--black); padding: 0.75rem 1.75rem; border-radius: 3px; border: 1px solid var(--gray-300); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: border-color 0.2s; }
     .btn-secondary:hover { border-color: var(--black); }
     .hero-visual { display: flex; justify-content: center; }
-    .avatar-wrapper { position: relative; width: 280px; height: 340px; background: var(--gray-100); border-radius: 4px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+    .avatar-wrapper { position: relative; width: 280px; height: 340px; background: var(--gray-100); border-radius: 2px; overflow: hidden; }
     .avatar-img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .avatar-accent { position: absolute; width: 48px; height: 4px; background: var(--accent); bottom: 0; left: 0; z-index: 3; }
     .stats-row { position: absolute; bottom: -40px; left: 0; right: 0; display: flex; gap: 1rem; justify-content: center; z-index: 4; }
@@ -126,16 +125,12 @@
     .section-label { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.75rem; }
     .section-title { font-family: var(--serif); font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 500; margin-bottom: 3rem; color: var(--black); }
     .divider { border: none; border-top: 1px solid #eee; max-width: 960px; margin: 0 auto; }
-    
-    /* SKILLS */
     .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
     .skill-card { border: 1px solid #eee; border-radius: 3px; padding: 1.5rem; transition: border-color 0.2s, transform 0.2s; }
     .skill-card:hover { border-color: var(--accent); transform: translateY(-2px); }
     .skill-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
     .skill-name { font-weight: 500; font-size: 0.95rem; margin-bottom: 0.25rem; color: var(--black); }
     .skill-desc { font-size: 0.8rem; color: var(--gray-500); line-height: 1.5; }
-
-    /* CV LIST */
     .cv-list { display: flex; flex-direction: column; }
     .cv-item { display: grid; grid-template-columns: 180px 1fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid #eee; align-items: start; }
     .cv-item:last-child { border-bottom: none; }
@@ -145,8 +140,6 @@
     .cv-desc { font-size: 0.875rem; color: var(--gray-700); line-height: 1.7; }
     .cv-badge { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 2px; margin-top: 0.5rem; font-weight: 500; }
     .cv-section-head { font-family: var(--serif); font-size: 1.2rem; font-weight: 500; color: var(--black); margin: 2.5rem 0 0.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent); display: inline-block; }
-
-    /* CONTACT & FORM */
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
     .contact-intro { font-size: 1rem; color: var(--gray-700); line-height: 1.8; margin-bottom: 2rem; }
     .contact-links { display: flex; flex-direction: column; gap: 1rem; }
@@ -162,32 +155,31 @@
     .form-submit:hover { background: var(--gray-900); }
     .form-note { font-size: 0.75rem; color: var(--gray-500); text-align: center; margin-top: 0.75rem; }
     footer { border-top: 1px solid #eee; padding: 2rem; text-align: center; font-size: 0.8rem; color: var(--gray-500); }
-
     @media (max-width: 720px) {
       .hero-inner { grid-template-columns: 1fr; }
-      .hero-visual { margin-top: 2rem; }
+      .hero-visual { display: none; }
       .cv-item { grid-template-columns: 1fr; gap: 0.5rem; }
       .contact-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
     }
   </style>
 </head>
-<body>
+<body class="">
 
 <!-- ADMIN LOGIN OVERLAY -->
-<div id="admin-overlay">
+<div id="admin-overlay" class="">
   <div id="login-box">
     <button id="close-login" onclick="closeLogin()">✕</button>
     <h2>Admin-Login</h2>
-    <p>Gib dein Passwort ein, um die Seite zu bearbeiten</p>
+    <p>Gib dein Passwort ein um die Seite zu bearbeiten</p>
     <input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')doLogin()">
     <button id="login-btn" onclick="doLogin()">Anmelden</button>
-    <div id="login-error">Falsches Passwort. Bitte erneut versuchen.</div>
+    <div id="login-error" style="display: none;">Falsches Passwort. Bitte erneut versuchen.</div>
   </div>
 </div>
 
 <!-- ADMIN BAR -->
-<div id="admin-bar">
+<div id="admin-bar" class="">
   <span>✏️ Admin-Modus aktiv – klick auf einen Text um ihn zu bearbeiten</span>
   <div class="admin-actions">
     <button class="ab-btn" id="btn-download" onclick="downloadPage()">⬇ Herunterladen</button>
@@ -195,7 +187,7 @@
   </div>
 </div>
 
-<div id="edit-hint">✏️ Texte anklicken zum Bearbeiten</div>
+<div id="edit-hint" style="display: none;">✏️ Texte anklicken zum Bearbeiten</div>
 
 <!-- NAV -->
 <nav>
@@ -228,8 +220,7 @@ zuverlässig bei der Warenannahme und im Lager.
     </div>
     <div class="hero-visual">
       <div class="avatar-wrapper">
-        <!-- Das Bild greift direkt bewerbungsfoto.jpg ab. Bei Ladefehlern greift ein weicher, hellgrauer Platzhalter -->
-        <img src="bewerbungsfoto.jpg" alt="Daniel Polansky" class="avatar-img" onerror="this.onerror=null; this.src='https://placehold.co/280x340/f4f4f2/6b6b6b?text=Daniel+Polansky';">
+        <img src="bewerbungsfoto.jpg" alt="Daniel Polansky" class="avatar-img">
         <div class="avatar-accent"></div>
         <div class="stats-row">
           <div class="stat-chip">
@@ -300,7 +291,10 @@ zuverlässig bei der Warenannahme und im Lager.
       <div>
         <div class="cv-role editable" contenteditable="false">Verkäufer</div>
         <div class="cv-company editable" contenteditable="false">Action Deutschland GmbH, Chemnitz</div>
-        <div class="cv-desc editable" contenteditable="false">Herzliche Kundenberatung auf der Verkaufsfläche, Kassiertätigkeiten, zuverlässige Sortimentspflege sowie ansprechende Warenpräsentation im dynamischen Einzelhandel.</div>
+        <div class="cv-desc editable" contenteditable="false">Herzliche 
+Kundenberatung auf der Verkaufsfläche, Kassiertätigkeiten, zuverlässige 
+Sortimentspflege sowie ansprechende Warenpräsentation im dynamischen 
+Einzelhandel.</div>
         <span class="cv-badge editable" contenteditable="false">Kundenfokus</span>
       </div>
     </div>
@@ -318,7 +312,9 @@ zuverlässig bei der Warenannahme und im Lager.
       <div>
         <div class="cv-role editable" contenteditable="false">Fachlagerist</div>
         <div class="cv-company editable" contenteditable="false">Trummer Personalservice GmbH</div>
-        <div class="cv-desc editable" contenteditable="false">Warenannahme, fachgerechte Einlagerung und Kommissionierung. Wertvolle Praxis zur Optimierung von Warenflüssen hinter den Kulissen.</div>
+        <div class="cv-desc editable" contenteditable="false">Warenannahme,
+ fachgerechte Einlagerung und Kommissionierung. Wertvolle Praxis zur 
+Optimierung von Warenflüssen hinter den Kulissen.</div>
         <span class="cv-badge editable" contenteditable="false">Organisation</span>
       </div>
     </div>
@@ -352,7 +348,9 @@ zuverlässig bei der Warenannahme und im Lager.
       <div>
         <div class="cv-role editable" contenteditable="false">Fachlagerist</div>
         <div class="cv-company editable" contenteditable="false">MZA Meyer-Zweiradtechnik GmbH, Suhl</div>
-        <div class="cv-desc editable" contenteditable="false">Langjährige Verantwortung in der Lagerlogistik: Von der präzisen Warenannahme über die Bestandspflege bis zur optimalen Vorbereitung für den Handel.</div>
+        <div class="cv-desc editable" contenteditable="false">Langjährige
+ Verantwortung in der Lagerlogistik: Von der präzisen Warenannahme über 
+die Bestandspflege bis zur optimalen Vorbereitung für den Handel.</div>
         <span class="cv-badge editable" contenteditable="false">Langjährige Erfahrung</span>
       </div>
     </div>
@@ -365,7 +363,9 @@ zuverlässig bei der Warenannahme und im Lager.
       <div>
         <div class="cv-role editable" contenteditable="false">Ausbildung zum Fachlageristen (IHK)</div>
         <div class="cv-company editable" contenteditable="false">Don Bosco Jugend-Werk Sachsen gGmbH</div>
-        <div class="cv-desc editable" contenteditable="false">Erfolgreich abgeschlossen Berufsausbildung. Hier habe ich das Fundament für strukturiertes Arbeiten, Warenkunde und logistische Abläufe gelernt.</div>
+        <div class="cv-desc editable" contenteditable="false">Erfolgreich
+ abgeschlossen Berufsausbildung. Hier habe ich das Fundament für 
+strukturiertes Arbeiten, Warenkunde und logistische Abläufe gelernt.</div>
         <span class="cv-badge editable" contenteditable="false">IHK-Abschluss</span>
       </div>
     </div>
@@ -402,7 +402,10 @@ zuverlässig bei der Warenannahme und im Lager.
   <div class="contact-grid">
     <div>
       <p class="contact-intro editable" contenteditable="false">
-        Sie suchen einen zuverlässigen Mitarbeiter im Verkauf, der mitdenkt, Kunden freundlich berät und auch im Lager tatkräftig unterstützt? Ich freue mich auf Ihre Nachricht oder einen Anruf für ein persönliches Kennenlernen.
+        Sie suchen einen zuverlässigen Mitarbeiter im Verkauf, der 
+mitdenkt, Kunden freundlich berät und auch im Lager tatkräftig 
+unterstützt? Ich freue mich auf Ihre Nachricht oder einen Anruf für ein 
+persönliches Kennenlernen.
       </p>
       <div class="contact-links">
         <a href="tel:+4915562812208" class="contact-link">
@@ -447,6 +450,7 @@ zuverlässig bei der Warenannahme und im Lager.
 <script>
   const ADMIN_PASSWORD = 'Daniel1997';
   let isAdmin = false;
+
   const FORMSPREE_URL = 'https://formspree.io/f/xqevlqee';
 
   function openLogin() {
@@ -577,5 +581,4 @@ zuverlässig bei der Warenannahme und im Lager.
   });
 </script>
 
-</body>
-</html>
+</body></html>
