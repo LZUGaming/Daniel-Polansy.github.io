@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="de"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daniel Polansky – Ihr Experte im Verkauf mit Logistik-Kompetenz</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:wght@400;500&amp;display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -165,22 +164,22 @@
     }
   </style>
 </head>
-<body>
+<body class="">
 
 <!-- ADMIN LOGIN OVERLAY -->
-<div id="admin-overlay">
+<div id="admin-overlay" class="">
   <div id="login-box">
     <button id="close-login" onclick="closeLogin()">✕</button>
     <h2>Admin-Login</h2>
     <p>Gib dein Passwort ein um die Seite zu bearbeiten</p>
-    <input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')doLogin()" />
+    <input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')doLogin()">
     <button id="login-btn" onclick="doLogin()">Anmelden</button>
-    <div id="login-error">Falsches Passwort. Bitte erneut versuchen.</div>
+    <div id="login-error" style="display: none;">Falsches Passwort. Bitte erneut versuchen.</div>
   </div>
 </div>
 
 <!-- ADMIN BAR -->
-<div id="admin-bar">
+<div id="admin-bar" class="">
   <span>✏️ Admin-Modus aktiv – klick auf einen Text um ihn zu bearbeiten</span>
   <div class="admin-actions">
     <button class="ab-btn" id="btn-download" onclick="downloadPage()">⬇ Herunterladen</button>
@@ -188,7 +187,7 @@
   </div>
 </div>
 
-<div id="edit-hint">✏️ Texte anklicken zum Bearbeiten</div>
+<div id="edit-hint" style="display: none;">✏️ Texte anklicken zum Bearbeiten</div>
 
 <!-- NAV -->
 <nav>
@@ -198,7 +197,7 @@
     <li><a href="#werdegang">Werdegang</a></li>
     <li><a href="#kontakt">Kontakt</a></li>
   </ul>
-  <button id="admin-login-btn" onclick="openLogin()">🔒 Admin</button>
+  <button id="admin-login-btn" onclick="openLogin()" style="display: block;">🔒 Admin</button>
 </nav>
 
 <!-- HERO -->
@@ -209,7 +208,7 @@
       <h1 class="hero-name editable" contenteditable="false">Daniel<br>Polansky</h1>
       <p class="hero-title editable" contenteditable="false">Engagierter Verkäufer im Einzelhandel · Mit starkem Logistik-Hintergrund</p>
       <p class="hero-bio editable" contenteditable="false">
-        Ich schätze den direkten Kundenkontakt, arbeite mich schnell in neue Sortimente ein und sorge für Ordnung auf der Verkaufsfläche. Zuletzt war ich als Verkäufer bei Action in Chemnitz tätig. Durch meine Ausbildung zum Fachlageristen unterstütze ich Ihr Team zudem zuverlässig bei der Warenannahme und im Lager.
+        Ich schätze den direkten Kundenkontakt, arbeite mich schnell in neue Sortimente ein und sorge für Ordnung auf der Verkaufsfläche. Durch meine Ausbildung zum Fachlageristen unterstütze ich Ihr Team zudem zuverlässig bei der Warenannahme und im Lager.
       </p>
       <div class="hero-cta">
         <a href="#kontakt" class="btn-primary">Lernen wir uns kennen</a>
@@ -219,7 +218,7 @@
     <div class="hero-visual">
       <div class="avatar-wrapper">
         <div class="avatar-bg"></div>
-        <div class="avatar-initials editable" contenteditable="false">DP</div>
+        <div class="avatar-initials editable" contenteditable="false">Daniel<br>Polansy</div>
         <div class="avatar-accent"></div>
         <div class="stats-row">
           <div class="stat-chip">
@@ -236,7 +235,7 @@
   </div>
 </div>
 
-<hr class="divider" />
+<hr class="divider">
 
 <!-- SKILLS -->
 <section>
@@ -276,7 +275,7 @@
   </div>
 </section>
 
-<hr class="divider" />
+<hr class="divider">
 
 <!-- WERDEGANG -->
 <section id="werdegang">
@@ -383,7 +382,7 @@
   </div>
 </section>
 
-<hr class="divider" />
+<hr class="divider">
 
 <!-- KONTAKT -->
 <section id="kontakt">
@@ -413,15 +412,15 @@
       <form id="contact-form" onsubmit="handleSubmit(event)">
         <div class="form-group">
           <label class="form-label" for="name">Ihr Name</label>
-          <input class="form-input" type="text" id="name" name="name" placeholder="z.B. Sabine Müller (Personalabteilung)" required />
+          <input class="form-input" type="text" id="name" name="name" placeholder="z.B. Sabine Müller (Personalabteilung)" required="">
         </div>
         <div class="form-group">
           <label class="form-label" for="email">E-Mail-Adresse</label>
-          <input class="form-input" type="email" id="email" name="email" placeholder="ihre.firma@beispiel.de" required />
+          <input class="form-input" type="email" id="email" name="email" placeholder="ihre.firma@beispiel.de" required="">
         </div>
         <div class="form-group">
           <label class="form-label" for="nachricht">Ihre Nachricht</label>
-          <textarea class="form-input" id="nachricht" name="message" placeholder="Erzählen Sie mir kurz von Ihrer freien Stelle im Verkauf..." required></textarea>
+          <textarea class="form-input" id="nachricht" name="message" placeholder="Erzählen Sie mir kurz von Ihrer freien Stelle im Verkauf..." required=""></textarea>
         </div>
         <button type="submit" class="form-submit" id="submit-btn">Nachricht senden</button>
         <p class="form-note" id="form-msg"></p>
@@ -568,5 +567,5 @@
     if (e.target === this) closeLogin();
   });
 </script>
-</body>
-</html>
+
+</body></html>
