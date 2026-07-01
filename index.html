@@ -133,40 +133,13 @@
     
     /* HERO VISUAL & AVATAR CONTAINER */
     .hero-visual { display: flex; justify-content: center; position: relative; }
-    
-    /* Ein neuer, übergeordneter Container, der KEIN overflow: hidden hat! Dadurch können die Kärtchen unten wunderschön herausragen */
-    .avatar-container {
-      position: relative;
-      width: 300px;
-      height: 360px;
-    }
-    
-    /* Nur die Bild-Box selbst rundet das Bild ab und beschneidet den schrägen roten Effekt */
-    .avatar-wrapper { 
-      position: relative; 
-      width: 100%; 
-      height: 100%; 
-      border-radius: 12px; 
-      overflow: hidden; 
-      box-shadow: 0 30px 60px -15px rgba(0,0,0,0.15); 
-      transition: transform 0.3s ease; 
-    }
+    .avatar-container { position: relative; width: 300px; height: 360px; }
+    .avatar-wrapper { position: relative; width: 100%; height: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 30px 60px -15px rgba(0,0,0,0.15); transition: transform 0.3s ease; }
     .avatar-wrapper:hover { transform: scale(1.02); }
     .avatar-wrapper::before { content: ''; position: absolute; top: -10%; left: -50%; width: 200%; height: 50%; background: var(--accent); transform: rotate(-15deg); opacity: 0.15; pointer-events: none; }
     .avatar-img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(10%) contrast(105%); }
     .avatar-accent { position: absolute; width: 100%; height: 6px; background: var(--accent); bottom: 0; left: 0; z-index: 3; }
-    
-    /* Diese Zeile schwebt außerhalb des avatar-wrappers und wird somit NIE WIEDER abgeschnitten! */
-    .stats-row { 
-      position: absolute; 
-      bottom: -35px; 
-      left: -20px; 
-      right: -20px; 
-      display: grid; 
-      grid-template-columns: 1fr 1fr; 
-      gap: 12px; 
-      z-index: 10; 
-    }
+    .stats-row { position: absolute; bottom: -35px; left: -20px; right: -20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; z-index: 10; }
     .stat-chip { background: var(--white); border-radius: 8px; padding: 0.75rem 1rem; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border-bottom: 3px solid var(--accent); }
     .stat-num { font-size: 1.15rem; font-weight: 750; color: var(--black); display: block; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.2; }
     .stat-lbl { font-size: 0.7rem; color: var(--gray-500); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; margin-top: 0.2rem; display: block; line-height: 1.3; }
@@ -183,37 +156,8 @@
     .skill-card::after { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent); transform: scaleY(0); transition: transform 0.2s ease; transform-origin: bottom; }
     .skill-card:hover { border-color: rgba(0,0,0,0.08); transform: translateY(-5px); box-shadow: 0 20px 40px -15px rgba(0,0,0,0.08); }
     .skill-card:hover::after { transform: scaleY(1); }
-    
-    /* SPEZIELLE LINK-KARTE FÜR DIE ZEUGNISSE */
-    .skill-card.clickable-card {
-      text-decoration: none;
-      color: inherit;
-      border: 1.5px dashed var(--accent);
-      background: var(--white);
-    }
-    .skill-card.clickable-card::after {
-      background: var(--accent);
-      transform: scaleY(0);
-    }
-    .skill-card.clickable-card:hover {
-      border-style: solid;
-      border-color: var(--accent);
-    }
-    .card-action {
-      margin-top: auto;
-      padding-top: 1.25rem;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--accent);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      transition: gap 0.2s;
-    }
-    .skill-card.clickable-card:hover .card-action {
-      gap: 0.5rem;
-    }
-    
+    .card-action { margin-top: auto; padding-top: 1.25rem; font-size: 0.85rem; font-weight: 700; color: var(--accent); display: inline-flex; align-items: center; gap: 0.25rem; transition: gap 0.2s; text-decoration: none; }
+    .skill-card:hover .card-action { gap: 0.5rem; }
     .skill-icon { font-size: 2rem; margin-bottom: 1.25rem; display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: var(--bg-main); border-radius: 8px; }
     .skill-name { font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--black); }
     .skill-desc { font-size: 0.875rem; color: var(--gray-700); line-height: 1.6; }
@@ -239,7 +183,6 @@
     .contact-link:hover { color: var(--accent); }
     .contact-icon { width: 44px; height: 44px; border: 1.5px solid var(--gray-300); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; background: var(--white); transition: all 0.2s; }
     .contact-link:hover .contact-icon { border-color: var(--accent); background: var(--accent-light); color: var(--accent); transform: translateY(-2px); }
-    
     .form-card { background: var(--white); border-radius: 12px; padding: 2.5rem; box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05); border: 1.5px solid rgba(0,0,0,0.04); }
     .form-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
     .form-label { font-size: 0.8rem; color: var(--gray-500); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
@@ -249,7 +192,6 @@
     .form-submit { width: 100%; padding: 0.95rem; background: var(--accent); color: var(--white); border: none; border-radius: 6px; font-family: var(--sans); font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 10px 20px -5px rgba(255, 59, 29, 0.3); }
     .form-submit:hover { background: var(--black); transform: translateY(-1px); box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2); }
     .form-note { font-size: 0.8rem; color: var(--gray-500); text-align: center; margin-top: 1rem; font-weight: 500; }
-    
     footer { border-top: 1px solid rgba(0,0,0,0.06); padding: 3rem 2rem; text-align: center; font-size: 0.85rem; color: var(--gray-500); font-weight: 500; }
     
     @media (max-width: 820px) {
@@ -307,12 +249,9 @@
     <div class="hero-text">
       <span class="hero-label editable" contenteditable="false">Kundenberatung &amp; Verkauf · Chemnitz</span>
       <h1 class="hero-name editable" contenteditable="false">Daniel<br><span>Polansky</span></h1>
-      <p class="hero-title editable" contenteditable="false">Engagierter Verkäufer im Einzelhandel · Mit ausgeprägtem Logistik-Hintergrund</p>
+      <p class="hero-title editable" contenteditable="false">Engagierter Verkäufer im Einzelhandel · Mit fundierter Logistik-Ausbildung</p>
       <p class="hero-bio editable" contenteditable="false">
-        Ich schätze den direkten Kundenkontakt, arbeite mich schnell in 
-neue Sortimente ein und sorge für Ordnung auf der Verkaufsfläche. Durch 
-meine Ausbildung zum Fachlagerist unterstütze ich Ihr Team zudem 
-zuverlässig bei der Warenannahme und im Lager.
+        Ich schätze den direkten Kundenkontakt und sorge für Ordnung auf der Verkaufsfläche. Durch meine abgeschlossene Ausbildung zum Fachlagerist unterstütze ich Ihr Team zudem zuverlässig bei der Warenannahme und Logistik.
       </p>
       <div class="hero-cta">
         <a href="#kontakt" class="btn-primary">Lernen wir uns kennen</a>
@@ -320,14 +259,12 @@ zuverlässig bei der Warenannahme und im Lager.
       </div>
     </div>
     
-    <!-- HIER IST DIE GEFIKTE AVATAR-BOX -->
     <div class="hero-visual">
       <div class="avatar-container">
         <div class="avatar-wrapper">
           <img src="bewerbungsfoto.jpg" alt="Daniel Polansky" class="avatar-img">
           <div class="avatar-accent"></div>
         </div>
-        <!-- Die Stats-Row schwebt jetzt im container außerhalb von overflow:hidden und zeigt den gesamten Text unbeschnitten an! -->
         <div class="stats-row">
           <div class="stat-chip">
             <span class="stat-num editable" contenteditable="false">Verkauf</span>
@@ -367,8 +304,8 @@ zuverlässig bei der Warenannahme und im Lager.
     </div>
     <div class="skill-card">
       <div class="skill-icon">📦</div>
-      <div class="skill-name editable" contenteditable="false">Logistische Unterstützung</div>
-      <div class="skill-desc editable" contenteditable="false">Warenannahme, Bestandspflege und Kommissionierung dank Ausbildung zum Fachlageristen.</div>
+      <div class="skill-name editable" contenteditable="false">Logistische Expertise</div>
+      <div class="skill-desc editable" contenteditable="false">Warenannahme, Bestandspflege und Kommissionierung basierend auf meiner IHK-Ausbildung.</div>
     </div>
     <div class="skill-card">
       <div class="skill-icon">👥</div>
@@ -381,13 +318,16 @@ zuverlässig bei der Warenannahme und im Lager.
       <div class="skill-desc editable" contenteditable="false">Deutsch als Muttersprache für eine fehlerfreie Verständigung mit Kunden und Kollegen.</div>
     </div>
     
-    <!-- KLICKBARE KARTE FÜR ZEUGNISSE -->
-    <a href="https://drive.google.com/drive/folders/1EuflFzbK-1KiQIKiyN-18c4uFHzp3YU6" target="_blank" class="skill-card clickable-card">
+    <div class="skill-card">
       <div class="skill-icon">📜</div>
       <div class="skill-name editable" contenteditable="false">Zeugnisse &amp; Zertifikate</div>
-      <div class="skill-desc editable" contenteditable="false">Sehen Sie hier meine IHK-Zeugnisse, Beurteilungen und Qualifikationsnachweise direkt ein.</div>
-      <div class="card-action">Unterlagen öffnen ↗</div>
-    </a>
+      <div class="skill-desc editable" contenteditable="false">Hier können Sie meine Ausbildungs- und Schulzeugnisse direkt herunterladen.</div>
+      <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 8px;">
+        <a href="Abschlusszeugnis_Ausbildung_Polansky_Daniel.pdf" target="_blank" class="card-action">📄 Abschlusszeugnis Ausbildung ↗</a>
+        <a href="IHK_Zeugnis_Polansky.pdf" target="_blank" class="card-action">📄 IHK-Prüfungszeugnis ↗</a>
+        <a href="Realschulabschluss_Polansky.pdf" target="_blank" class="card-action">📄 Realschulabschluss ↗</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -405,16 +345,16 @@ zuverlässig bei der Warenannahme und im Lager.
       <div>
         <div class="cv-role editable" contenteditable="false">Verkäufer</div>
         <div class="cv-company editable" contenteditable="false">Action Deutschland GmbH, Chemnitz</div>
-        <div class="cv-desc editable" contenteditable="false">Herzliche Kundenberatung auf der Verkaufsfläche, Kassiertätigkeiten, zuverlässige Sortimentspflege sowie ansprechende Warenpräsentation im dynamischen Einzelhandel.</div>
+        <div class="cv-desc editable" contenteditable="false">Kundenberatung, Kassiertätigkeiten, Sortimentspflege sowie ansprechende Warenpräsentation im Einzelhandel.</div>
         <span class="cv-badge editable" contenteditable="false">Kundenfokus</span>
       </div>
     </div>
     <div class="cv-item">
       <div class="cv-date editable" contenteditable="false">07/2024 – 12/2024</div>
       <div>
-        <div class="cv-role editable" contenteditable="false">Berufliche Weiterbildung &amp; Qualifizierung</div>
+        <div class="cv-role editable" contenteditable="false">Berufliche Qualifizierung</div>
         <div class="cv-company editable" contenteditable="false">CBZ Chemnitz GmbH</div>
-        <div class="cv-desc editable" contenteditable="false">Gezielte Weiterqualifizierung zur Stärkung der persönlichen Kompetenzen für den modernen Arbeitsmarkt.</div>
+        <div class="cv-desc editable" contenteditable="false">Gezielte Weiterqualifizierung zur Stärkung der persönlichen Kompetenzen für den Arbeitsmarkt.</div>
         <span class="cv-badge editable" contenteditable="false">Weiterentwicklung</span>
       </div>
     </div>
@@ -423,16 +363,8 @@ zuverlässig bei der Warenannahme und im Lager.
       <div>
         <div class="cv-role editable" contenteditable="false">Fachlagerist</div>
         <div class="cv-company editable" contenteditable="false">Trummer Personalservice GmbH</div>
-        <div class="cv-desc editable" contenteditable="false">Warenannahme, fachgerechte Einlagerung und Kommissionierung. Wertvolle Praxis zur Optimierung von Warenflüssen hinter den Kulissen.</div>
+        <div class="cv-desc editable" contenteditable="false">Warenannahme, fachgerechte Einlagerung und Kommissionierung.</div>
         <span class="cv-badge editable" contenteditable="false">Organisation</span>
-      </div>
-    </div>
-    <div class="cv-item">
-      <div class="cv-date editable" contenteditable="false">12/2021 – 09/2022</div>
-      <div>
-        <div class="cv-role editable" contenteditable="false">Maßnahme zur Orientierung &amp; Weiterbildung</div>
-        <div class="cv-company editable" contenteditable="false">Jugendberufshilfe Chemnitz gGmbH – Regionalvorteil Plus</div>
-        <div class="cv-desc editable" contenteditable="false">Erweiterung des fachlichen Horizonts und Stärkung der beruflichen Orientierung.</div>
       </div>
     </div>
     <div class="cv-item">
@@ -440,16 +372,8 @@ zuverlässig bei der Warenannahme und im Lager.
       <div>
         <div class="cv-role editable" contenteditable="false">Fachlagerist</div>
         <div class="cv-company editable" contenteditable="false">Meteor Personaldienste, Chemnitz</div>
-        <div class="cv-desc editable" contenteditable="false">Unterstützung in der Logistik mit Fokus auf schnelle, fehlerfreie Bereitstellung von Waren.</div>
+        <div class="cv-desc editable" contenteditable="false">Unterstützung in der Logistik mit Fokus auf schnelle Bereitstellung von Waren.</div>
         <span class="cv-badge editable" contenteditable="false">Effizienz</span>
-      </div>
-    </div>
-    <div class="cv-item">
-      <div class="cv-date editable" contenteditable="false">01/2020 – 02/2020</div>
-      <div>
-        <div class="cv-role editable" contenteditable="false">Fachlagerist</div>
-        <div class="cv-company editable" contenteditable="false">Schlütter Oberflächentechnik GmbH, Suhl</div>
-        <div class="cv-desc editable" contenteditable="false">Sorgfältige Lagertätigkeiten und Materialvorbereitung im industriellen Umfeld.</div>
       </div>
     </div>
     <div class="cv-item">
@@ -457,7 +381,7 @@ zuverlässig bei der Warenannahme und im Lager.
       <div>
         <div class="cv-role editable" contenteditable="false">Fachlagerist</div>
         <div class="cv-company editable" contenteditable="false">MZA Meyer-Zweiradtechnik GmbH, Suhl</div>
-        <div class="cv-desc editable" contenteditable="false">Langjährige Verantwortung in der Lagerlogistik: Von der präzisen Warenannahme über die Bestandspflege bis zur optimalen Vorbereitung für den Handel.</div>
+        <div class="cv-desc editable" contenteditable="false">Verantwortung in der Lagerlogistik: Warenannahme, Bestandspflege und Kommissionierung.</div>
         <span class="cv-badge editable" contenteditable="false">Langjährige Erfahrung</span>
       </div>
     </div>
@@ -469,17 +393,9 @@ zuverlässig bei der Warenannahme und im Lager.
       <div class="cv-date editable" contenteditable="false">09/2015 – 07/2017</div>
       <div>
         <div class="cv-role editable" contenteditable="false">Ausbildung zum Fachlageristen (IHK)</div>
-        <div class="cv-company editable" contenteditable="false">Don Bosco Jugend-Werk Sachsen gGmbH</div>
-        <div class="cv-desc editable" contenteditable="false">Erfolgreich abgeschlossene Berufsausbildung. Hier habe ich das Fundament für strukturiertes Arbeiten, Warenkunde und logistische Abläufe gelernt.</div>
-        <span class="cv-badge editable" contenteditable="false">IHK-Abschluss</span>
-      </div>
-    </div>
-    <div class="cv-item">
-      <div class="cv-date editable" contenteditable="false">09/2014 – 08/2015</div>
-      <div>
-        <div class="cv-role editable" contenteditable="false">Berufsvorbereitende Bildungsmaßnahme</div>
-        <div class="cv-company editable" contenteditable="false">Don Bosco Jugend-Werk Sachsen gGmbH</div>
-        <div class="cv-desc editable" contenteditable="false">Gezielte Vorbereitung auf die Anforderungen der Berufswelt und Logistik.</div>
+        <div class="cv-company editable" contenteditable="false">Don Bosco Jugend-Werk Sachsen gGmbH / IHK Chemnitz</div>
+        <div class="cv-desc editable" contenteditable="false">Abschluss als Fachlagerist (IHK). Umfassende Ausbildung in Lagerprozessen, Güterbewegung und Warenannahme.</div>
+        <span class="cv-badge editable" contenteditable="false">IHK-Abschluss (Niveau 3)</span>
       </div>
     </div>
   </div>
@@ -489,9 +405,9 @@ zuverlässig bei der Warenannahme und im Lager.
     <div class="cv-item">
       <div class="cv-date editable" contenteditable="false">09/2004 – 07/2014</div>
       <div>
-        <div class="cv-role editable" contenteditable="false">Mittlere Reife (Realschulabschluss)</div>
+        <div class="cv-role editable" contenteditable="false">Realschulabschluss</div>
         <div class="cv-company editable" contenteditable="false">Evangelische Oberschule Burkhardtsdorf</div>
-        <div class="cv-desc editable" contenteditable="false">Allgemeinbildende Schule, erfolgreich beendet mit dem Realschulabschluss.</div>
+        <div class="cv-desc editable" contenteditable="false">Erfolgreicher Abschluss der Mittleren Reife mit fundierten Kenntnissen in den Kernfächern.</div>
         <span class="cv-badge editable" contenteditable="false">Mittlere Reife</span>
       </div>
     </div>
@@ -507,7 +423,7 @@ zuverlässig bei der Warenannahme und im Lager.
   <div class="contact-grid">
     <div>
       <p class="contact-intro editable" contenteditable="false">
-        Sie suchen einen zuverlässigen Mitarbeiter im Verkauf, der mitdenkt, Kunden freundlich berät und auch im Lager tatkräftig unterstützt? Ich freue mich auf Ihre Nachricht oder einen Anruf für ein persönliches Kennenlernen.
+        Sie suchen einen zuverlässigen Mitarbeiter im Verkauf, der durch seine Logistik-Ausbildung mitdenkt? Ich freue mich auf Ihre Nachricht oder einen Anruf für ein Kennenlernen.
       </p>
       <div class="contact-links">
         <a href="tel:+4915562812208" class="contact-link">
@@ -537,7 +453,7 @@ zuverlässig bei der Warenannahme und im Lager.
           </div>
           <div class="form-group">
             <label class="form-label" for="nachricht">Ihre Nachricht</label>
-            <textarea class="form-input" id="nachricht" name="message" placeholder="Erzählen Sie mir kurz von Ihrer freien Stelle im Verkauf..." required=""></textarea>
+            <textarea class="form-input" id="nachricht" name="message" placeholder="Erzählen Sie mir kurz von Ihrer freien Stelle..." required=""></textarea>
           </div>
           <button type="submit" class="form-submit" id="submit-btn">Nachricht senden</button>
           <p class="form-note" id="form-msg"></p>
@@ -548,13 +464,12 @@ zuverlässig bei der Warenannahme und im Lager.
 </section>
 
 <footer>
-  <p class="editable" contenteditable="false">© 2026 Daniel Polansky · Chemnitz</p>
+  <p class="editable" contenteditable="false">© 2026 Daniel Polansky · Mit Herz im Verkauf · Chemnitz</p>
 </footer>
 
 <script>
   const ADMIN_PASSWORD = 'Daniel1997';
   let isAdmin = false;
-
   const FORMSPREE_URL = 'https://formspree.io/f/xqevlqee';
 
   function openLogin() {
@@ -576,18 +491,7 @@ zuverlässig bei der Warenannahme und im Lager.
       enableAdminMode();
     } else {
       document.getElementById('login-error').style.display = 'block';
-      document.getElementById('pw-input').value = '';
-      document.getElementById('pw-input').focus();
     }
-  }
-
-  function enableAdminMode() {
-    document.body.classList.add('admin-mode');
-    document.getElementById('admin-bar').classList.add('visible');
-    document.getElementById('admin-login-btn').style.display = 'none';
-    document.querySelectorAll('.editable').forEach(el => {
-      el.contentEditable = 'true';
-    });
   }
 
   function doLogout() {
@@ -595,94 +499,49 @@ zuverlässig bei der Warenannahme und im Lager.
     document.body.classList.remove('admin-mode');
     document.getElementById('admin-bar').classList.remove('visible');
     document.getElementById('admin-login-btn').style.display = 'block';
-    document.querySelectorAll('.editable').forEach(el => {
-      el.contentEditable = 'false';
-    });
+    const editables = document.querySelectorAll('.editable');
+    editables.forEach(el => el.setAttribute('contenteditable', 'false'));
+  }
+
+  function enableAdminMode() {
+    document.body.classList.add('admin-mode');
+    document.getElementById('admin-bar').classList.add('visible');
+    document.getElementById('admin-login-btn').style.display = 'none';
+    const editables = document.querySelectorAll('.editable');
+    editables.forEach(el => el.setAttribute('contenteditable', 'true'));
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const msg = document.getElementById('form-msg');
+    msg.textContent = "Sende Nachricht...";
+    
+    try {
+      const response = await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok) {
+        msg.textContent = "Danke! Nachricht gesendet.";
+        form.reset();
+      } else {
+        msg.textContent = "Fehler beim Senden. Bitte versuche es später nochmal.";
+      }
+    } catch (error) {
+      msg.textContent = "Fehler beim Senden. Bitte versuche es später nochmal.";
+    }
   }
 
   function downloadPage() {
-    document.querySelectorAll('.editable').forEach(el => el.contentEditable = 'false');
-    document.body.classList.remove('admin-mode');
-    document.getElementById('admin-bar').classList.remove('visible');
-    document.getElementById('admin-login-btn').style.display = 'block';
-    document.getElementById('edit-hint').style.display = 'none';
-
-    const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-
-    setTimeout(() => {
-      document.body.classList.add('admin-mode');
-      document.getElementById('admin-bar').classList.add('visible');
-      document.getElementById('admin-login-btn').style.display = 'none';
-      document.getElementById('edit-hint').style.display = 'block';
-      document.querySelectorAll('.editable').forEach(el => el.contentEditable = 'true');
-    }, 100);
-
-    const blob = new Blob([html], { type: 'text/html' });
+    const content = document.documentElement.outerHTML;
+    const blob = new Blob([content], { type: 'text/html' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'index.html';
     a.click();
   }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = document.getElementById('submit-btn');
-    const msg = document.getElementById('form-msg');
-    
-    btn.textContent = 'Wird gesendet…';
-    btn.disabled = true;
-
-    if (!FORMSPREE_URL) {
-      setTimeout(() => {
-        btn.textContent = '✓ Nachricht gesendet';
-        msg.textContent = 'Vielen Dank! Ich melde mich so schnell wie möglich bei Ihnen (Simulation).';
-        msg.style.color = '#FF3B1D';
-        e.target.reset();
-        setTimeout(() => { 
-          btn.textContent = 'Nachricht senden'; 
-          btn.disabled = false; 
-          msg.textContent = ''; 
-        }, 4000);
-      }, 1200);
-      return;
-    }
-
-    const formData = new FormData(e.target);
-    
-    fetch(FORMSPREE_URL, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        btn.textContent = '✓ Nachricht gesendet';
-        msg.textContent = 'Vielen Dank! Ihre Nachricht wurde erfolgreich übermittelt.';
-        msg.style.color = '#22c55e';
-        e.target.reset();
-      } else {
-        throw new Error('Fehler beim Senden');
-      }
-    })
-    .catch(error => {
-      btn.textContent = 'Fehler!';
-      msg.textContent = 'Ups! Da gab es ein Problem beim Senden. Bitte versuchen Sie es später noch einmal.';
-      msg.style.color = '#e53e3e';
-    })
-    .finally(() => {
-      setTimeout(() => {
-        btn.textContent = 'Nachricht senden';
-        btn.disabled = false;
-        msg.textContent = '';
-      }, 5000);
-    });
-  }
-
-  document.getElementById('admin-overlay').addEventListener('click', function(e) {
-    if (e.target === this) closeLogin();
-  });
 </script>
-
-</body></html>
+</body>
+</html>
